@@ -16,9 +16,10 @@
  '(line-number-mode t)
  '(menu-bar-mode nil)
  '(neo-confirm-create-file (quote off-p))
+ '(org-default-notes-file "~/Dropbox/notes/tasks.org")
  '(package-selected-packages
    (quote
-    (haskell-mode magit evil-commentary vue-mode neotree alchemist zenburn-theme evil)))
+    (htmlize haskell-mode magit evil-commentary vue-mode neotree alchemist zenburn-theme evil)))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil)
  '(tooltip-mode nil))
