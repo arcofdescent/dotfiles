@@ -19,7 +19,7 @@
  '(org-default-notes-file "~/Dropbox/notes/tasks.org")
  '(package-selected-packages
    (quote
-    (htmlize haskell-mode magit evil-commentary vue-mode neotree alchemist zenburn-theme evil)))
+    (anki-editor htmlize haskell-mode magit evil-commentary vue-mode neotree alchemist zenburn-theme evil)))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil)
  '(tooltip-mode nil))
