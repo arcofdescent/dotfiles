@@ -6,6 +6,9 @@ Just getting started with xmonad. The config is in an org file.
 M-x org-babel-tangle -> write to xmonad.hs
 C-c C-v t -> write to xmonad.hs
 
+* Useful Links
+** [[https://xiangji.me/2018/11/19/my-xmonad-configuration/]]
+
 * IMPORTS
 
 #+BEGIN_SRC haskell

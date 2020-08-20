@@ -76,3 +76,9 @@
 
 (setq neo-window-fixed-size nil)
 (setq neo-window-width 34)
+
+;; crypt
+(require 'org-crypt)
+(org-crypt-use-before-save-magic)
+(setq org-tags-exclude-from-inheritance (quote ("crypt")))
+(setq org-crypt-key nil)
