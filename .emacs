@@ -30,6 +30,9 @@
  ;; If there is more than one, they won't work right.
  )
 
+;; no auto save
+(setq auto-save-default nil)
+
 (evil-mode 1)
 (load-theme 'zenburn t)
 
@@ -49,6 +52,8 @@
 (evil-define-key 'normal neotree-mode-map (kbd "A") 'neotree-stretch-toggle)
 (evil-define-key 'normal neotree-mode-map (kbd "H") 'neotree-hidden-file-toggle)
 
+;; gc -> comment/uncomment region
+;; gcc -> comment/uncomment line
 (evil-commentary-mode)
 (electric-pair-mode)
 
