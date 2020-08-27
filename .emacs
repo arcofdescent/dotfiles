@@ -16,7 +16,7 @@
  '(line-number-mode t)
  '(menu-bar-mode nil)
  '(neo-confirm-create-file (quote off-p))
- '(org-default-notes-file "~/Dropbox/notes/tasks.org")
+ '(org-default-notes-file "~/Dropbox/notes/notes.org")
  '(package-selected-packages
    (quote
     (anki-editor htmlize haskell-mode magit evil-commentary vue-mode neotree alchemist zenburn-theme evil)))
@@ -32,6 +32,14 @@
 
 ;; no auto save
 (setq auto-save-default nil)
+
+;; backups
+(setq backup-directory-alist '(("." . "~/Dropbox/backups/notes")))
+(setq backup-by-copying t)
+(setq delete-old-versions t
+  kept-new-versions 6
+  kept-old-versions 2
+  version-control t)
 
 (evil-mode 1)
 (load-theme 'zenburn t)
@@ -57,6 +65,10 @@
 (evil-commentary-mode)
 (electric-pair-mode)
 
+;; TODO states
+(setq org-todo-keywords
+      '((sequence "TODO" "IN_PROGRESS" "DONE")))
+
 (setq org-startup-indented t)
 (setq inferior-julia-program-name "/mnt/opt/julia-1.5.0-rc1/bin/julia")
 (load "/home/rohan/.emacs.d/ob-julia.el")
@@ -75,10 +87,13 @@
 (setq org-confirm-babel-evaluate nil)
 
 (setq neo-window-fixed-size nil)
-(setq neo-window-width 34)
+(setq neo-window-width 32)
 
 ;; crypt
 (require 'org-crypt)
 (org-crypt-use-before-save-magic)
 (setq org-tags-exclude-from-inheritance (quote ("crypt")))
 (setq org-crypt-key nil)
+
+;; ibuffer
+(global-set-key (kbd "C-x C-b") 'ibuffer)

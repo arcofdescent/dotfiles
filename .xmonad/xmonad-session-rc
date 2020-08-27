@@ -3,6 +3,9 @@
 # HDMI-1 to left of laptop
 #xrandr --output HDMI-1 --auto --output eDP-1 --auto --right-of HDMI-1
 
+# Automount
+udisksctl mount -b /dev/sdb1
+
 # CAPS LOCK as Ctrl
 setxkbmap -option "ctrl:nocaps"
 xcape
