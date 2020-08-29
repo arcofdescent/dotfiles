@@ -19,7 +19,7 @@
  '(org-default-notes-file "~/Dropbox/notes/notes.org")
  '(package-selected-packages
    (quote
-    (anki-editor htmlize haskell-mode magit evil-commentary vue-mode neotree alchemist zenburn-theme evil)))
+    (use-package anki-editor htmlize haskell-mode magit evil-commentary vue-mode neotree alchemist zenburn-theme evil)))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil)
  '(tooltip-mode nil))
@@ -29,6 +29,28 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+;; packages
+(use-package anki-editor
+  :ensure t)
+(use-package htmlize
+  :ensure t)
+(use-package haskell-mode
+  :ensure t)
+(use-package magit
+  :ensure t)
+(use-package evil-commentary
+  :ensure t)
+(use-package vue-mode
+  :ensure t)
+(use-package neotree
+  :ensure t)
+(use-package alchemist
+  :ensure t)
+(use-package zenburn-theme
+  :ensure t)
+(use-package evil
+  :ensure t)
 
 ;; no auto save
 (setq auto-save-default nil)
