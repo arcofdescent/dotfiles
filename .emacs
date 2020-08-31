@@ -92,7 +92,7 @@
       '((sequence "TODO" "IN_PROGRESS" "DONE")))
 
 (setq org-startup-indented t)
-(setq inferior-julia-program-name "/mnt/opt/julia-1.5.0-rc1/bin/julia")
+(setq inferior-julia-program-name "/mnt/opt/julia-1.5.1/bin/julia")
 (load "/home/rohan/.emacs.d/ob-julia.el")
 
 ;; Run/highlight code using babel in org-mode
