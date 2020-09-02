@@ -1,17 +1,3 @@
-#+TITLE: XMonad config
-#+PROPERTY: header-args :tangle xmonad.hs
-
-* XMonad Config
-Just getting started with xmonad. The config is in an org file.
-M-x org-babel-tangle -> write to xmonad.hs
-C-c C-v t -> write to xmonad.hs
-
-* Useful Links
-** [[https://xiangji.me/2018/11/19/my-xmonad-configuration/]]
-
-* IMPORTS
-
-#+BEGIN_SRC haskell
 import XMonad
 import XMonad.Layout.ResizableTile
 import XMonad.Hooks.EwmhDesktops
@@ -20,19 +6,11 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig
 import System.IO
-#+END_SRC
 
-* Layout
-
-#+BEGIN_SRC haskell
 myLayout = avoidStruts (tall ||| Mirror tall ||| Full)
   where
     tall = ResizableTall 1 (3/100) (1/2) []
-#+END_SRC
-    
-* Main
 
-#+BEGIN_SRC haskell
 main = do
   xmproc <- spawnPipe "xmobar"
   xmonad $ docks $ ewmh def
@@ -52,4 +30,3 @@ main = do
     , ((0                     , 0x1008ff13), spawn "amixer -q sset Master 2%+")
     , ((0                     , 0x1008ff12), spawn "amixer -D pulse set Master toggle")
     ]
-#+END_SRC

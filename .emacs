@@ -55,6 +55,10 @@
 ;; no auto save
 (setq auto-save-default nil)
 
+;; desktop
+;; Don't save frame and window configuration
+(setq desktop-restore-frames nil)
+
 ;; backups
 (setq backup-directory-alist '(("." . "~/Dropbox/backups/notes")))
 (setq backup-by-copying t)
