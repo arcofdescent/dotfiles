@@ -47,5 +47,8 @@ main = do
     [
       ((mod4Mask .|. shiftMask, xK_h), sendMessage MirrorExpand)
     , ((mod4Mask .|. shiftMask, xK_l), sendMessage MirrorShrink)
+    , ((0                     , 0x1008ff11), spawn "amixer -q sset Master 2%-")
+    , ((0                     , 0x1008ff13), spawn "amixer -q sset Master 2%+")
+    , ((0                     , 0x1008ff12), spawn "amixer -D pulse set Master toggle")
     ]
 #+END_SRC
