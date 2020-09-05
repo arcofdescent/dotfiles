@@ -3,7 +3,7 @@ import XMonad.Layout.ResizableTile
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
-import XMonad.Util.Run(spawnPipe)
+import XMonad.Util.Run
 import XMonad.Util.EZConfig
 import System.IO
 
@@ -26,7 +26,7 @@ main = do
       ((mod4Mask .|. shiftMask, xK_h), sendMessage MirrorExpand)
     , ((mod4Mask .|. shiftMask, xK_l), sendMessage MirrorShrink)
     , ((mod4Mask .|. shiftMask, xK_z), spawn "xscreensaver-command -lock")
-    , ((0                     , 0x1008ff11), spawn "amixer -q sset Master 2%-")
-    , ((0                     , 0x1008ff13), spawn "amixer -q sset Master 2%+")
+    , ((0                     , 0x1008ff11), spawn "amixer -q sset Master 2%- && /home/rohan/bin/notify_volume.sh")
+    , ((0                     , 0x1008ff13), spawn "amixer -q sset Master 2%+ && /home/rohan/bin/notify_volume.sh")
     , ((0                     , 0x1008ff12), spawn "amixer -D pulse set Master toggle")
     ]
