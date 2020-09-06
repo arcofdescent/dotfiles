@@ -15,6 +15,7 @@ main = do
   xmproc <- spawnPipe "xmobar"
   xmonad $ docks $ ewmh def
     { modMask = mod4Mask     -- Rebind Mod to the Windows key
+    , terminal = "qterminal"
     , layoutHook = myLayout
     , logHook = dynamicLogWithPP xmobarPP
                 { ppOutput = hPutStrLn xmproc
@@ -29,5 +30,4 @@ main = do
     , ((0                     , 0x1008ff11), spawn "amixer -q sset Master 2%- && /home/rohan/bin/notify_volume.sh")
     , ((0                     , 0x1008ff13), spawn "amixer -q sset Master 2%+ && /home/rohan/bin/notify_volume.sh")
     , ((0                     , 0x1008ff12), spawn "amixer -D pulse set Master toggle")
-    , ((mod4Mask, xK_m), spawn "lxqt-config-monitor")
     ]
