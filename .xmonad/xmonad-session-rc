@@ -1,34 +1,34 @@
 
 # Arrange the monitors
 # HDMI-1 to left of laptop
-sh /home/rohan/.screenlayout/hdmi-edp.sh
+#sh /home/rohan/.screenlayout/hdmi-edp.sh
 
 # Automount
-udisksctl mount -b /dev/sdb1
+#udisksctl mount -b /dev/sdb1
 
 # CAPS LOCK as Ctrl
-setxkbmap -option "ctrl:nocaps"
-xcape
+#setxkbmap -option "ctrl:nocaps"
+#xcape
 
 # Set the background color
-xsetroot -solid midnightblue
+#xsetroot -solid midnightblue
 
 # screensaver
-xscreensaver -no-splash &
+#xscreensaver -no-splash &
 
 # Notifications
-lxqt-notificationd &
+#lxqt-notificationd &
 
 # Set up an icon tray
-trayer --edge top --align right --SetDockType true --SetPartialStrut true \
- --expand true --width 10 --transparent true --tint 0x191970 --height 20 &
+#trayer --edge top --align right --SetDockType true --SetPartialStrut true \
+# --expand true --width 10 --transparent true --tint 0x191970 --height 20 &
  
 # System tray
-sleep 2
-nm-applet &
-lxqt-powermanagement &
-qlipper &
+#sleep 2
+#nm-applet &
+#lxqt-powermanagement &
+#qlipper &
 
 # Dropbox
-~/.dropbox-dist/dropboxd &
+#~/.dropbox-dist/dropboxd &
 
