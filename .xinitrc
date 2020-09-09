@@ -33,7 +33,7 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
 fi
 
 # Automount
-#udisksctl mount -b /dev/sdb1
+udisksctl mount -b /dev/sdb1
 
 # CAPS LOCK as Ctrl
 setxkbmap -option "ctrl:nocaps"
@@ -54,9 +54,9 @@ trayer --edge top --align right --SetDockType true --SetPartialStrut true \
  
 # System tray
 sleep 2
-#nm-applet &
+nm-applet &
 lxqt-powermanagement &
-#qlipper &
+xfce4-clipman &
 
 # Dropbox
 #~/.dropbox-dist/dropboxd &
