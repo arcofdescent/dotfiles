@@ -59,7 +59,7 @@ lxqt-powermanagement &
 xfce4-clipman &
 
 # Dropbox
-#~/.dropbox-dist/dropboxd &
+dropbox &
 
 # Arrange the monitors
 # HDMI-1 to left of laptop
