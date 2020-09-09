@@ -32,10 +32,6 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-# Arrange the monitors
-# HDMI-1 to left of laptop
-sh /home/rohan/.screenlayout/hdmi-edp.sh
-
 # Automount
 #udisksctl mount -b /dev/sdb1
 
@@ -64,5 +60,9 @@ lxqt-powermanagement &
 
 # Dropbox
 #~/.dropbox-dist/dropboxd &
+
+# Arrange the monitors
+# HDMI-1 to left of laptop
+sh /home/rohan/.screenlayout/hdmi-edp.sh
 
 exec xmonad
