@@ -29,5 +29,5 @@ main = do
     , ((mod4Mask .|. shiftMask, xK_z), spawn "xscreensaver-command -lock")
     , ((0                     , 0x1008ff11), spawn "amixer -q sset Master 2%- && /home/rohan/bin/notify_volume.sh")
     , ((0                     , 0x1008ff13), spawn "amixer -q sset Master 2%+ && /home/rohan/bin/notify_volume.sh")
-    , ((0                     , 0x1008ff12), spawn "amixer -D pulse set Master toggle")
+    , ((0                     , 0x1008ff12), spawn "amixer set Master toggle")
     ]
