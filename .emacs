@@ -96,15 +96,12 @@
       '((sequence "TODO" "IN_PROGRESS" "DONE")))
 
 (setq org-startup-indented t)
-(setq inferior-julia-program-name "/mnt/opt/julia-1.5.1/bin/julia")
-(load "/home/rohan/.emacs.d/ob-julia.el")
 
 ;; Run/highlight code using babel in org-mode
 (org-babel-do-load-languages
  'org-babel-load-languages
  '(
    (python . t)
-   (julia . t)
    ;; Include other languages here...
    ))
 ;; Syntax highlight in #+BEGIN_SRC blocks
