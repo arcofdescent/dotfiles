@@ -127,3 +127,6 @@
 ;; vue files, set html/js mode
 (global-set-key (kbd "C-x v j") 'js-mode)
 (global-set-key (kbd "C-x v h") 'html-mode)
+
+;; emacs copying clipboard fix
+(setq x-selection-timeout 10)
