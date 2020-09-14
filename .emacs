@@ -40,8 +40,8 @@
   :ensure t)
 (use-package evil-commentary
   :ensure t)
-; (use-package vue-mode
-;   :ensure t)
+;; (use-package vue-mode
+;;   :ensure t)
 (use-package neotree
   :ensure t)
 (use-package alchemist
@@ -119,3 +119,11 @@
 
 ;; ibuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)
+
+;; prev/next buffer
+(global-set-key (kbd "C-x C-]") 'next-buffer)
+(global-set-key (kbd "C-x C-p") 'previous-buffer)
+
+;; vue files, set html/js mode
+(global-set-key (kbd "C-x v j") 'js-mode)
+(global-set-key (kbd "C-x v h") 'html-mode)
