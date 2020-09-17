@@ -56,7 +56,7 @@ trayer --edge top --align right --SetDockType true --SetPartialStrut true \
 sleep 2
 nm-applet &
 lxqt-powermanagement &
-xfce4-clipman &
+qlipper &
 
 # Dropbox
 dropbox &
