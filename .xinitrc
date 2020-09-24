@@ -57,7 +57,6 @@ sleep 2
 nm-applet &
 lxqt-powermanagement &
 qlipper &
-volctl &
 
 # Dropbox
 dropbox &
