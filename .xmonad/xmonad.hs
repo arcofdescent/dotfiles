@@ -27,7 +27,7 @@ main = do
       ((mod4Mask .|. shiftMask, xK_h), sendMessage MirrorExpand)
     , ((mod4Mask .|. shiftMask, xK_l), sendMessage MirrorShrink)
     , ((mod4Mask .|. shiftMask, xK_z), spawn "xscreensaver-command -lock")
-    , ((0                     , 0x1008ff11), spawn "pactl set-sink-volume 0 -2%")
-    , ((0                     , 0x1008ff13), spawn "pactl set-sink-volume 0 +2%")
-    , ((0                     , 0x1008ff12), spawn "pactl set-sink-mute 0 toggle")
+    , ((0                     , 0x1008ff11), spawn "pactl set-sink-volume @DEFAULT_SINK@ -2%")
+    , ((0                     , 0x1008ff13), spawn "pactl set-sink-volume @DEFAULT_SINK@  +2%")
+    , ((0                     , 0x1008ff12), spawn "pactl set-sink-mute @DEFAULT_SINK@  toggle")
     ]
