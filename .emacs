@@ -16,7 +16,9 @@
  '(line-number-mode t)
  '(menu-bar-mode nil)
  '(neo-confirm-create-file 'off-p)
+ '(org-agenda-files '("~/Dropbox/notes"))
  '(org-default-notes-file "~/Dropbox/notes/notes.org")
+ '(org-directory "~/Dropbox/notes")
  '(package-selected-packages
    '(use-package anki-editor htmlize haskell-mode magit evil-commentary neotree alchemist zenburn-theme evil))
  '(scroll-bar-mode nil)
@@ -92,7 +94,7 @@
 
 ;; TODO states
 (setq org-todo-keywords
-      '((sequence "TODO" "IN_PROGRESS" "DONE")))
+      '((sequence "TODO(t)" "PROJ(p)" "IN_PROGRESS" "|" "DONE(d)")))
 
 (setq org-startup-indented t)
 
@@ -101,6 +103,7 @@
  'org-babel-load-languages
  '(
    (python . t)
+   (shell . t)
    ;; Include other languages here...
    ))
 ;; Syntax highlight in #+BEGIN_SRC blocks
