@@ -90,7 +90,12 @@
 ;; gc -> comment/uncomment region
 ;; gcc -> comment/uncomment line
 (evil-commentary-mode)
+
+;; auto insert closing paren
 (electric-pair-mode)
+
+;; show matching paren
+(show-paren-mode 1)
 
 ;; TODO states
 (setq org-todo-keywords
