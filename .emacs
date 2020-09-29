@@ -16,7 +16,7 @@
  '(line-number-mode t)
  '(menu-bar-mode nil)
  '(neo-confirm-create-file 'off-p)
- '(org-agenda-files '("~/Dropbox/notes"))
+ '(org-agenda-files '("~/Dropbox/notes" "/z/apps/argus/notes.org"))
  '(org-default-notes-file "~/Dropbox/notes/notes.org")
  '(org-directory "~/Dropbox/notes")
  '(package-selected-packages
@@ -133,3 +133,7 @@
 
 ;; emacs copying clipboard fix
 (setq x-selection-timeout 10)
+
+;; desktop sessions
+;; Load argus project
+(global-set-key (kbd "C-x a") '(lambda() (interactive) (desktop-change-dir "~/.emacs.d/argus")))
