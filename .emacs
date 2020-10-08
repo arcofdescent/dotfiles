@@ -20,7 +20,7 @@
  '(org-default-notes-file "~/Dropbox/notes/notes.org")
  '(org-directory "~/Dropbox/notes")
  '(package-selected-packages
-   '(use-package anki-editor htmlize haskell-mode magit evil-commentary neotree alchemist zenburn-theme evil))
+   '(doom-modeline use-package anki-editor htmlize haskell-mode magit evil-commentary neotree alchemist zenburn-theme evil))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil)
  '(tooltip-mode nil))
@@ -52,6 +52,11 @@
   :ensure t)
 (use-package evil
   :ensure t)
+(use-package all-the-icons
+  :ensure t)
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1))
 
 ;; no auto save
 (setq auto-save-default nil)
