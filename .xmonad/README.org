@@ -43,7 +43,7 @@ main = do
                 { ppOutput = hPutStrLn xmproc
                 , ppTitle = xmobarColor "green" "" . shorten 50
                 }
-    , borderWidth = 3
+    , borderWidth = 4
     } `additionalKeys`
     [
       ((mod4Mask .|. shiftMask, xK_h), sendMessage MirrorExpand)
