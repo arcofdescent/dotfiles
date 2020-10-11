@@ -92,6 +92,12 @@
 (evil-define-key 'normal neotree-mode-map (kbd "A") 'neotree-stretch-toggle)
 (evil-define-key 'normal neotree-mode-map (kbd "H") 'neotree-hidden-file-toggle)
 
+;; don't show organice bak files
+(setq neo-hidden-regexp-list '("^\\." "\\.organice-bak$" "\\.pyc$" "~$" "^#.*#$" "\\.elc$" "\\.o$"))
+
+(setq neo-window-fixed-size nil)
+(setq neo-window-width 32)
+
 ;; gc -> comment/uncomment region
 ;; gcc -> comment/uncomment line
 (evil-commentary-mode)
@@ -120,9 +126,6 @@
 (setq org-src-fontify-natively t)
 ;; Don't prompt before running code in org
 (setq org-confirm-babel-evaluate nil)
-
-(setq neo-window-fixed-size nil)
-(setq neo-window-width 32)
 
 ;; crypt
 (require 'org-crypt)
