@@ -110,7 +110,7 @@
 
 ;; TODO states
 (setq org-todo-keywords
-      '((sequence "TODO" "PROJ" "|" "DONE")))
+      '((sequence "TODO" "PROJ" "IN_PROGRESS" "|" "DONE")))
 
 (setq org-startup-indented t)
 
