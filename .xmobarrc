@@ -4,7 +4,7 @@ Config { font = "-*-Fixed-Bold-R-Normal-*-14-*-*-*-*-*-*-*"
        , position = TopW L 90
        , lowerOnStart = True
        , allDesktops = True
-       , commands = [ Run Date "%a %b %_d %l:%M" "date" 10
+       , commands = [ Run Date "%a %b %_d %H:%M:%S" "date" 10
                     , Run StdinReader
                     ]
        , sepChar = "%"
