@@ -12,7 +12,7 @@ myLayout = avoidStruts (tall ||| Mirror tall ||| Full)
     tall = ResizableTall 1 (3/100) (1/2) []
 
 main = do
-  xmproc <- spawnPipe "xmobar"
+  xmproc <- spawnPipe "xmobar -x 1"
   xmonad $ docks $ ewmh def
     { modMask = mod4Mask     -- Rebind Mod to the Windows key
     , terminal = "qterminal"
