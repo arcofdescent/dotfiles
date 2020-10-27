@@ -26,6 +26,6 @@ export PATH=$PATH:$HOME/bin
 # for maintaining iex history across sessions
 export ERL_AFLAGS="-kernel shell_history enabled"
 
-export HISTSIZE=1000
-export HISTFILESIZE=2000
+export HISTSIZE=3000
+export HISTFILESIZE=3500
 

@@ -68,7 +68,7 @@
 (setq desktop-restore-frames nil)
 
 ;; backups
-(setq backup-directory-alist '(("." . "~/Dropbox/backups/notes")))
+(setq backup-directory-alist '(("." . "~/backups/emacs")))
 (setq backup-by-copying t)
 (setq delete-old-versions t
   kept-new-versions 6
