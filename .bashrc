@@ -10,6 +10,7 @@ alias vi=vim
 alias ls='ls --color=auto'
 alias ll="ls -lv --group-directories-first"
 alias la='ll -A'
+alias rm="rm -i"
 
 # for managing dotfiles
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
