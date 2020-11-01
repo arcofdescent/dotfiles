@@ -42,8 +42,6 @@
   :ensure t)
 (use-package evil-commentary
   :ensure t)
-;; (use-package vue-mode
-;;   :ensure t)
 (use-package neotree
   :ensure t)
 (use-package alchemist
