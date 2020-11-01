@@ -58,7 +58,8 @@
   :ensure t
   :init (doom-modeline-mode 1))
 (use-package ivy
-  :ensure t)
+  :ensure t
+  :config (ivy-mode 1))
 
 ;; no auto save
 (setq auto-save-default nil)
