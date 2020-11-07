@@ -6,6 +6,8 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Util.Run
 import XMonad.Util.EZConfig
 import System.IO
+import XMonad.Actions.CycleWS
+import qualified XMonad.Actions.DynamicWorkspaceOrder as DO
 
 myLayout = avoidStruts (tall ||| Mirror tall ||| Full)
   where
@@ -30,4 +32,6 @@ main = do
     , ((0                     , 0x1008ff11), spawn "pactl set-sink-volume @DEFAULT_SINK@ -2%")
     , ((0                     , 0x1008ff13), spawn "pactl set-sink-volume @DEFAULT_SINK@  +2%")
     , ((0                     , 0x1008ff12), spawn "pactl set-sink-mute @DEFAULT_SINK@  toggle")
+    , ((mod4Mask , xK_bracketleft), DO.moveTo Prev HiddenNonEmptyWS)
+    , ((mod4Mask , xK_bracketright), DO.moveTo Next HiddenNonEmptyWS)
     ]
