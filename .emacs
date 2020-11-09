@@ -58,6 +58,9 @@
 (use-package ivy
   :ensure t
   :config (ivy-mode 1))
+(use-package idomenu
+  :ensure t
+  :bind ("C-c i" . idomenu))
 
 ;; no auto save
 (setq auto-save-default nil)
@@ -151,3 +154,8 @@
 ;; desktop sessions
 ;; Load argus project
 (global-set-key (kbd "C-x a") '(lambda() (interactive) (desktop-change-dir "~/.emacs.d/argus")))
+
+;; Ido mode
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(ido-mode 1)
