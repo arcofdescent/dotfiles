@@ -20,7 +20,7 @@
  '(org-default-notes-file "~/Dropbox/notes/notes.org")
  '(org-directory "~/Dropbox/notes")
  '(package-selected-packages
-   '(all-the-icons highlight-indent-guides ivy doom-modeline use-package anki-editor htmlize haskell-mode magit evil-commentary neotree alchemist zenburn-theme evil))
+   '(all-the-icons company-mode highlight-indent-guides ivy doom-modeline use-package anki-editor htmlize haskell-mode magit evil-commentary neotree alchemist zenburn-theme evil))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil)
  '(tooltip-mode nil))
@@ -65,6 +65,12 @@
   :ensure t
   :config
   (setq highlight-indent-guides-method 'bitmap))
+(use-package company
+  :config (global-company-mode 1)
+  :ensure t)
+
+;; highligh active line
+(global-hl-line-mode 1)
 
 ;; no auto save
 (setq auto-save-default nil)
