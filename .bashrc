@@ -29,4 +29,5 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 
 export HISTSIZE=3000
 export HISTFILESIZE=3500
+export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
 

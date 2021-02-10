@@ -1,8 +1,8 @@
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+;; (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
 ;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
 ;; and `package-pinned-packages`. Most users will not need or want to do this.
-;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (package-initialize)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -20,7 +20,7 @@
  '(org-default-notes-file "~/Dropbox/notes/notes.org")
  '(org-directory "~/Dropbox/notes")
  '(package-selected-packages
-   '(go-mode all-the-icons company-mode highlight-indent-guides ivy doom-modeline use-package anki-editor htmlize haskell-mode magit evil-commentary neotree alchemist zenburn-theme evil))
+   '(typescript-mode markdown-mode go-mode all-the-icons company-mode highlight-indent-guides ivy doom-modeline use-package anki-editor htmlize haskell-mode magit evil-commentary neotree alchemist zenburn-theme evil))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil)
  '(tooltip-mode nil))
@@ -70,9 +70,31 @@
   :ensure t)
 (use-package go-mode
   :ensure t)
+(use-package markdown-mode
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))
+(use-package rjsx-mode
+  :ensure t)
+(use-package typescript-mode
+  :mode (("\\.tsx\\'" . typescript-mode))
+  :ensure t)
+(use-package web-mode
+  :ensure t)
+(use-package tide
+  :ensure t
+  :after (typescript-mode company flycheck)
+  :hook ((typescript-mode . tide-setup)
+         (typescript-mode . tide-hl-identifier-mode)
+         (before-save . tide-format-before-save)))
 
 ;; highligh active line
 (global-hl-line-mode 1)
+
+(global-flycheck-mode)
 
 ;; no auto save
 (setq auto-save-default nil)
@@ -105,7 +127,7 @@
 (evil-define-key 'normal neotree-mode-map (kbd "g") 'neotree-refresh)
 (evil-define-key 'normal neotree-mode-map (kbd "n") 'neotree-next-line)
 (evil-define-key 'normal neotree-mode-map (kbd "p") 'neotree-previous-line)
-(evil-define-key 'normal neotree-mode-map (kbd "A") 'neotree-stretch-toggle)
+
 (evil-define-key 'normal neotree-mode-map (kbd "H") 'neotree-hidden-file-toggle)
 
 ;; don't show organice bak files
@@ -157,15 +179,11 @@
 (global-set-key (kbd "C-x C-p") 'previous-buffer)
 
 ;; vue files, set html/js mode
-(global-set-key (kbd "C-x v j") 'js-mode)
-(global-set-key (kbd "C-x v h") 'html-mode)
+;; (global-set-key (kbd "C-x v j") 'js-mode)
+;; (global-set-key (kbd "C-x v h") 'html-mode)
 
 ;; emacs copying clipboard fix
 (setq x-selection-timeout 10)
-
-;; desktop sessions
-;; Load argus project
-(global-set-key (kbd "C-x a") '(lambda() (interactive) (desktop-change-dir "~/.emacs.d/argus")))
 
 ;; Ido mode
 (setq ido-enable-flex-matching t)
@@ -174,3 +192,41 @@
 
 ;; no pesky lock files
 (setq create-lockfiles nil)
+
+;; TypeScript
+(defun setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  ;; company is an optional dependency. You have to
+  ;; install it separately via package-install
+  ;; `M-x package-install [ret] company`
+  (company-mode +1))
+
+;; aligns annotation to the right hand side
+(setq company-tooltip-align-annotations t)
+
+;; formats the buffer before saving
+(add-hook 'before-save-hook 'tide-format-before-save)
+
+;; TSX
+(add-hook 'typescript-mode-hook #'setup-tide-mode)
+
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+(add-hook 'web-mode-hook
+          (lambda ()
+            (when (string-equal "tsx" (file-name-extension buffer-file-name))
+              (setup-tide-mode))))
+
+;; enable typescript-tslint checker
+(flycheck-add-mode 'typescript-tslint 'web-mode)
+
+(setq-default typescript-indent-level 2)
+(setq web-mode-code-indent-offset 2)
+(setq web-mode-indent-style 2)
+(setq web-mode-markup-indent-offset 2)
+(setq-default indent-tabs-mode nil)
