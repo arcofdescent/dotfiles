@@ -232,4 +232,3 @@
 (setq web-mode-markup-indent-offset 2)
 (setq-default indent-tabs-mode nil)
 
-(setq line-number-mode t)
