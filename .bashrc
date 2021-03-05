@@ -23,6 +23,7 @@ export PS1="\u@\h \[\e[32m\]\w \[\e[91m\]\$(parse_git_branch)\[\e[00m\]$ "
 
 # path
 export PATH=$PATH:$HOME/bin:/usr/local/go/bin
+export NPM_TOKEN=5140183b8e6f6c478f323ae7daef25e9d1f7e303
 
 # for maintaining iex history across sessions
 export ERL_AFLAGS="-kernel shell_history enabled"
