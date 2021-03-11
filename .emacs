@@ -2,7 +2,8 @@
 ;; (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
 ;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
 ;; and `package-pinned-packages`. Most users will not need or want to do this.
-(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+;; (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (package-initialize)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -235,4 +236,5 @@
 (setq web-mode-markup-indent-offset 2)
 (setq-default indent-tabs-mode nil)
 
-(setq display-line-numbers-mode t)
+(global-display-line-numbers-mode)
+
