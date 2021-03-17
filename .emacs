@@ -236,5 +236,3 @@
 (setq web-mode-markup-indent-offset 2)
 (setq-default indent-tabs-mode nil)
 
-(global-display-line-numbers-mode)
-
