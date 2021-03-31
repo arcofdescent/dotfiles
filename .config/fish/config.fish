@@ -1,5 +1,6 @@
 
 alias vi=vim
+alias rm="rm -i"
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 set NPM_TOKEN 5140183b8e6f6c478f323ae7daef25e9d1f7e303

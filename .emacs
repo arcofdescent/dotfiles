@@ -154,6 +154,7 @@
       '((sequence "TODO" "PROJ" "IN_PROGRESS" "|" "DONE")))
 
 (setq org-startup-indented t)
+(setq org-startup-folded t)
 
 ;; Run/highlight code using babel in org-mode
 (org-babel-do-load-languages
