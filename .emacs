@@ -134,7 +134,7 @@
 (evil-define-key 'normal neotree-mode-map (kbd "H") 'neotree-hidden-file-toggle)
 
 ;; don't show organice bak files
-(setq neo-hidden-regexp-list '("^\\." "\\.organice-bak$" "\\.pyc$" "~$" "^#.*#$" "\\.elc$" "\\.o$"))
+(setq neo-hidden-regexp-list '("^\\." "\\.organice-bak$" "\\.pyc$" "~$" "^#.*#$" "\\.elc$" "\\.o$" "__pycache__"))
 
 (setq neo-window-fixed-size nil)
 (setq neo-window-width 32)
