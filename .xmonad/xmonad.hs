@@ -1,5 +1,6 @@
 import XMonad
 import XMonad.Layout.ResizableTile
+import XMonad.Layout.Grid
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
@@ -9,9 +10,10 @@ import System.IO
 import XMonad.Actions.CycleWS
 import qualified XMonad.Actions.DynamicWorkspaceOrder as DO
 
-myLayout = avoidStruts (tall ||| Mirror tall ||| Full)
+myLayout = avoidStruts (tall ||| Mirror tall ||| layoutGrid ||| Full)
   where
     tall = ResizableTall 1 (3/100) (1/2) []
+    layoutGrid = Grid
 
 main = do
   xmproc <- spawnPipe "xmobar -x 1"
