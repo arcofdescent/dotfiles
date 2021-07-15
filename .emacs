@@ -21,7 +21,7 @@
  '(org-default-notes-file "~/Dropbox/notes/notes.org")
  '(org-directory "~/Dropbox/notes")
  '(package-selected-packages
-   '(yaml-mode julia-mode typescript-mode markdown-mode go-mode all-the-icons company-mode highlight-indent-guides ivy doom-modeline use-package anki-editor htmlize haskell-mode magit evil-commentary neotree alchemist zenburn-theme evil))
+   '(docker-compose-mode docker yaml-mode julia-mode typescript-mode markdown-mode go-mode all-the-icons company-mode highlight-indent-guides ivy doom-modeline use-package anki-editor htmlize haskell-mode magit evil-commentary neotree alchemist zenburn-theme evil))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil)
  '(tooltip-mode nil))
@@ -244,3 +244,7 @@
             (setq tab-width 4)
             (setq standard-indent 4)
             (setq indent-tabs-mode nil)))
+
+(let ((govet (flycheck-checker-get 'go-vet 'command)))
+  (when (equal (cadr govet) "tool")
+    (setf (cdr govet) (cddr govet))))
