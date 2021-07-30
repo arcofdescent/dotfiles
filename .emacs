@@ -19,7 +19,7 @@
  '(org-default-notes-file "~/Dropbox/notes/notes.org")
  '(org-directory "~/Dropbox/notes")
  '(package-selected-packages
-   '(org-roam docker-compose-mode docker yaml-mode julia-mode typescript-mode markdown-mode go-mode all-the-icons company-mode highlight-indent-guides ivy doom-modeline use-package anki-editor htmlize haskell-mode magit evil-commentary neotree alchemist zenburn-theme evil))
+   '(which-key org-roam docker-compose-mode docker yaml-mode julia-mode typescript-mode markdown-mode go-mode all-the-icons company-mode highlight-indent-guides ivy doom-modeline use-package anki-editor htmlize haskell-mode magit evil-commentary neotree alchemist zenburn-theme evil))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil)
  '(tooltip-mode nil))
@@ -102,6 +102,10 @@
          ("C-c n i" . org-roam-node-insert))
   :config
   (org-roam-setup))
+(use-package which-key
+  :ensure t
+  :config
+  (which-key-mode))
 
 ;; highligh active line
 (global-hl-line-mode 1)
