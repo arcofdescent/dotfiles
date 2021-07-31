@@ -15,7 +15,7 @@
  '(line-number-mode t)
  '(menu-bar-mode nil)
  '(neo-confirm-create-file 'off-p)
- '(org-agenda-files '("~/Dropbox/notes" "/z/apps/argus/notes.org"))
+ '(org-agenda-files '("~/Dropbox/notes" "~/Dropbox/RoamNotes/daily"))
  '(org-default-notes-file "~/Dropbox/notes/notes.org")
  '(org-directory "~/Dropbox/notes")
  '(package-selected-packages
@@ -261,3 +261,11 @@
 (let ((govet (flycheck-checker-get 'go-vet 'command)))
   (when (equal (cadr govet) "tool")
     (setf (cdr govet) (cddr govet))))
+
+(setq org-roam-dailies-directory "daily/")
+
+(setq org-roam-dailies-capture-templates
+      '(("d" "default" entry
+         "* %?"
+         :if-new (file+head "%<%Y-%m-%d>.org"
+                            "#+title: %<%Y-%m-%d>\n"))))
