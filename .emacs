@@ -15,7 +15,7 @@
  '(line-number-mode t)
  '(menu-bar-mode nil)
  '(neo-confirm-create-file 'off-p)
- '(org-agenda-files '("~/Dropbox/notes" "~/Dropbox/RoamNotes/daily"))
+ '(org-agenda-files '("~/Dropbox/notes" "~/work/genleap/notes.org" "~/Dropbox/RoamNotes/daily"))
  '(org-default-notes-file "~/Dropbox/notes/notes.org")
  '(org-directory "~/Dropbox/notes")
  '(package-selected-packages
