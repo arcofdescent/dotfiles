@@ -16,13 +16,16 @@ myLayout = avoidStruts (tall ||| Mirror tall ||| layoutGrid ||| Full)
     layoutGrid = Grid
 
 main = do
-  xmproc <- spawnPipe "xmobar -x 1"
+  xmproc0 <- spawnPipe "xmobar -x 0"
+  xmproc1 <- spawnPipe "xmobar -x 1"
+  xmproc2 <- spawnPipe "xmobar -x 2"
+
   xmonad $ docks $ ewmh def
     { modMask = mod4Mask     -- Rebind Mod to the Windows key
     , terminal = "qterminal"
     , layoutHook = myLayout
     , logHook = dynamicLogWithPP xmobarPP
-                { ppOutput = hPutStrLn xmproc
+                { ppOutput = \x -> hPutStrLn xmproc0 x >> hPutStrLn xmproc1 x >> hPutStrLn xmproc2 x
                 , ppTitle = xmobarColor "green" "" . shorten 50
                 }
     , borderWidth = 4

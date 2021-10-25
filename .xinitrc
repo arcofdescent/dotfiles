@@ -1,5 +1,4 @@
 #!/bin/sh
-
 userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
@@ -49,7 +48,7 @@ xscreensaver -no-splash &
 lxqt-notificationd &
 
 # Set up an icon tray
-trayer --edge top --align right --SetDockType true --SetPartialStrut true \
+trayer --monitor 0 --edge top --align right --SetDockType true --SetPartialStrut true \
  --expand true --width 10 --transparent true --tint 0x191970 --height 20 &
  
 # System tray
