@@ -10,7 +10,8 @@
  '(column-number-mode t)
  '(inhibit-startup-screen t)
  '(line-number-mode t)
- '(package-selected-packages '(magit slime zenburn-theme evil-commentary neotree evil))
+ '(package-selected-packages
+   '(ivy magit slime zenburn-theme evil-commentary neotree evil))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil)
  '(tooltip-mode nil))
@@ -28,7 +29,7 @@
 (load-theme 'zenburn t)
 
 ;; auto insert closing paren
-(electric-pair-mode)
+;; (electric-pair-mode)
 
 ;; slime
 (setq inferior-lisp-program "sbcl")
@@ -37,6 +38,9 @@
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 (ido-mode 1)
+
+;; ivy
+(ivy-mode)
 
 ;; magit
 (global-set-key (kbd "C-x g") 'magit-status)
