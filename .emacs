@@ -11,7 +11,7 @@
  '(inhibit-startup-screen t)
  '(line-number-mode t)
  '(package-selected-packages
-   '(ivy magit slime zenburn-theme evil-commentary neotree evil))
+   '(org ivy magit slime zenburn-theme evil-commentary neotree evil))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil)
  '(tooltip-mode nil))
@@ -21,6 +21,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(setq evil-want-C-i-jump nil)
 
 ;; evil mode
 (evil-mode 1)
@@ -73,3 +75,7 @@
 
 ;; no pesky lock files
 (setq create-lockfiles nil)
+
+;; org clean view
+(setq org-startup-indented t)
+(setq org-startup-folded t)
