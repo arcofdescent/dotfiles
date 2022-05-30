@@ -11,7 +11,7 @@
  '(inhibit-startup-screen t)
  '(line-number-mode t)
  '(package-selected-packages
-   '(org ivy magit slime zenburn-theme evil-commentary neotree evil))
+   '(which-key org ivy magit slime zenburn-theme evil-commentary neotree evil))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil)
  '(tooltip-mode nil))
@@ -85,3 +85,7 @@
 (org-crypt-use-before-save-magic)
 (setq org-tags-exclude-from-inheritance (quote ("crypt")))
 (setq org-crypt-key nil)
+
+;; which-key
+;; show popup of available commands
+(which-key-mode)
