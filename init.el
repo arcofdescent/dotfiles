@@ -1,19 +1,9 @@
-
-Emacs config. This would go into ~/.config/emacs/init.el
-
-* Setup package
-#+begin_src emacs-lisp :tangle init.el
-
 ;; Set up package.el to work with MELPA
 (require 'package)
 (add-to-list 'package-archives
             '("melpa" . "http://melpa.org/packages/"))
 (package-initialize)
 ;;package-refresh-contents)
-
-#+end_src
-* Evil mode
-#+begin_src emacs-lisp :tangle init.el
 
 ;; Download Evil
 (unless (package-installed-p 'evil)
@@ -23,10 +13,6 @@ Emacs config. This would go into ~/.config/emacs/init.el
 (require 'evil)
 (evil-mode 1)
 
-#+end_src
-* utf
-#+begin_src emacs-lisp :tangle init.el
-
 ;; UTF-8 support
 (prefer-coding-system       'utf-8)
 (set-default-coding-systems 'utf-8)
@@ -35,9 +21,6 @@ Emacs config. This would go into ~/.config/emacs/init.el
 
 (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
-#+end_src
-* Rest
-#+begin_src emacs-lisp :tangle init.el
 ;; theme
 (load-theme 'tango-dark)
 
@@ -65,5 +48,3 @@ Emacs config. This would go into ~/.config/emacs/init.el
 
 ;; Enable evil-commentary
 (evil-commentary-mode)
-
-#+end_src
