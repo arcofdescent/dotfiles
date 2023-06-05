@@ -36,10 +36,15 @@ Emacs config. This would go into ~/.config/emacs/init.el
 (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
 #+end_src
-* Rest
+* Theme
 #+begin_src emacs-lisp :tangle init.el
+
 ;; theme
 (load-theme 'tango-dark)
+
+#+end_src
+* Rest
+#+begin_src emacs-lisp :tangle init.el
 
 ;; Don't show the splash screen
 (setq inhibit-startup-message t)
