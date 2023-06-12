@@ -1,7 +1,10 @@
 
 Emacs config. This would go into ~/.config/emacs/init.el
 
-* Setup package
+* Package setup
+
+[[https://github.com/jwiegley/use-package][use-package]] helps in the configuration and loading of packages
+
 #+begin_src emacs-lisp :tangle init.el
 
 ;; Set up package.el to work with MELPA
@@ -15,20 +18,15 @@ Emacs config. This would go into ~/.config/emacs/init.el
 (unless package-archive-contents
   (package-refresh-contents))
 
-#+end_src
-* Evil mode
-#+begin_src emacs-lisp :tangle init.el
+;; Initialize use-package
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
 
-;; Download Evil
-(unless (package-installed-p 'evil)
-(package-install 'evil))
-
-;; Enable Evil
-(require 'evil)
-(evil-mode 1)
+(require 'use-package)
+(setq use-package-always-ensure t)
 
 #+end_src
-* utf
+* UI stuff
 #+begin_src emacs-lisp :tangle init.el
 
 ;; UTF-8 support
@@ -39,16 +37,8 @@ Emacs config. This would go into ~/.config/emacs/init.el
 
 (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
-#+end_src
-* Theme
-#+begin_src emacs-lisp :tangle init.el
-
 ;; theme
 (load-theme 'tango-dark)
-
-#+end_src
-* Rest
-#+begin_src emacs-lisp :tangle init.el
 
 ;; Don't show the splash screen
 (setq inhibit-startup-message t)
@@ -57,22 +47,68 @@ Emacs config. This would go into ~/.config/emacs/init.el
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 
+(column-number-mode)
+(global-display-line-numbers-mode t)
+
+;; Disable line numbers for some modes
+(dolist (mode '(org-mode-hook
+                term-mode-hook
+                shell-mode-hook
+                treemacs-mode-hook
+                eshell-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+#+end_src
+* Evil mode
+#+begin_src emacs-lisp :tangle init.el
+
+(use-package evil
+  :init
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
+  :config
+  (evil-mode 1)
+
+  ;; Use visual line motions even outside of visual-line-mode buffers
+  (evil-global-set-key 'motion "j" 'evil-next-visual-line)
+  (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+
+  (evil-set-initial-state 'messages-buffer-mode 'normal)
+  (evil-set-initial-state 'dashboard-mode 'normal))
+
+(use-package evil-collection
+  :after evil
+  :config
+  (evil-collection-init))
+
+#+end_src
+* Which key
+
+[[https://github.com/justbur/emacs-which-key][which-key]] is a useful extension which displays available keybindings in a popup.
+
+#+begin_src emacs-lisp :tangle init.el
+
+(use-package which-key
+  :config
+  (which-key-mode))
+
+#+end_src
+* Commenting code
+
+gcc => Comment a line
+gc => Comment a visual block
+
+#+begin_src emacs-lisp :tangle init.el
+
+(use-package evil-commentary
+  :config
+  (evil-commentary-mode))
+
+#+end_src
+* Rest
+#+begin_src emacs-lisp :tangle init.el
+
 ;; Ibuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)
-
-;; Download which-key
-(unless (package-installed-p 'which-key)
-  (package-install 'which-key))
-
-;; Enable which-key
-(require 'which-key)
-(which-key-mode)
-
-;; Download evil-commentary
-(unless (package-installed-p 'evil-commentary)
-  (package-install 'evil-commentary))
-
-;; Enable evil-commentary
-(evil-commentary-mode)
 
 #+end_src
