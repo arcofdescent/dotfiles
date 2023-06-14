@@ -94,18 +94,16 @@ Emacs config. This would go into ~/.config/emacs/init.el
 
 #+end_src
 * Commenting code
-
-gcc => Comment a line
-gc => Comment a visual block
-
 #+begin_src emacs-lisp :tangle init.el
 
+;; gcc Comment a line
+;; gc Comment a visual block
 (use-package evil-commentary
   :config
   (evil-commentary-mode))
 
 #+end_src
-* Rest
+* ibuffer
 #+begin_src emacs-lisp :tangle init.el
 
 ;; Ibuffer
