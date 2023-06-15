@@ -38,16 +38,20 @@ Emacs config. This would go into ~/.config/emacs/init.el
 (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
 ;; theme
-(load-theme 'tango-dark)
+(use-package doom-themes
+  :config
+  (load-theme 'doom-one t))
 
 ;; Don't show the splash screen
 (setq inhibit-startup-message t)
 
 ;; Turn off some unneeded UI elements
+(scroll-bar-mode -1)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 
 (column-number-mode)
+(global-hl-line-mode +1)
 (global-display-line-numbers-mode t)
 
 ;; Disable line numbers for some modes
@@ -81,6 +85,14 @@ Emacs config. This would go into ~/.config/emacs/init.el
   :config
   (evil-collection-init))
 
+#+end_src
+* Org Mode
+#+begin_src emacs-lisp :tangle init.el
+
+(use-package org
+  :config
+  (org-indent-mode))
+    
 #+end_src
 * Which key
 

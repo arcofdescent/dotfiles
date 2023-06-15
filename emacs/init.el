@@ -25,16 +25,20 @@
 (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
 ;; theme
-(load-theme 'tango-dark)
+(use-package doom-themes
+  :config
+  (load-theme 'doom-one t))
 
 ;; Don't show the splash screen
 (setq inhibit-startup-message t)
 
 ;; Turn off some unneeded UI elements
+(scroll-bar-mode -1)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 
 (column-number-mode)
+(global-hl-line-mode +1)
 (global-display-line-numbers-mode t)
 
 ;; Disable line numbers for some modes
@@ -64,10 +68,16 @@
   :config
   (evil-collection-init))
 
+(use-package org
+  :config
+  (org-indent-mode))
+
 (use-package which-key
   :config
   (which-key-mode))
 
+;; gcc Comment a line
+;; gc Comment a visual block
 (use-package evil-commentary
   :config
   (evil-commentary-mode))
