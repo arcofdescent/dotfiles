@@ -70,7 +70,7 @@
 
 (use-package org
   :config
-  (org-indent-mode))
+  (setq org-startup-indented t))
 
 (use-package which-key
   :config

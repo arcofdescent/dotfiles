@@ -91,7 +91,7 @@ Emacs config. This would go into ~/.config/emacs/init.el
 
 (use-package org
   :config
-  (org-indent-mode))
+  (setq org-startup-indented t))
     
 #+end_src
 * Which key
