@@ -1,0 +1,23 @@
+set nocompatible
+set textwidth=82
+set backspace=indent,eol,start
+
+set autoindent
+set tabstop=4
+set expandtab
+set shiftwidth=4
+set shiftround
+set hlsearch
+
+set matchpairs+=<:>
+
+"moving through open windows
+map <C-j> <C-W>j<C-W>_
+map <C-k> <C-W>k<C-W>_
+map <C-h> <C-W>h<C-W>_
+map <C-m> <C-W>l<C-W>_
+
+syntax on
+set termguicolors
+colorscheme desert
+
