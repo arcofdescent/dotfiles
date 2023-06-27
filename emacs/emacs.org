@@ -2,7 +2,6 @@
 Emacs config. This would go into ~/.config/emacs/init.el
 
 * Package setup
-
 [[https://github.com/jwiegley/use-package][use-package]] helps in the configuration and loading of packages
 
 #+begin_src emacs-lisp :tangle init.el
@@ -95,7 +94,6 @@ Emacs config. This would go into ~/.config/emacs/init.el
     
 #+end_src
 * Which key
-
 [[https://github.com/justbur/emacs-which-key][which-key]] is a useful extension which displays available keybindings in a popup.
 
 #+begin_src emacs-lisp :tangle init.el
@@ -120,5 +118,11 @@ Emacs config. This would go into ~/.config/emacs/init.el
 
 ;; Ibuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)
+
+#+end_src
+* Magit
+#+begin_src emacs-lisp :tangle init.el
+
+(use-package magit)
 
 #+end_src
