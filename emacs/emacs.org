@@ -90,8 +90,9 @@ Emacs config. This would go into ~/.config/emacs/init.el
 
 (use-package org
   :config
-  (setq org-startup-indented t))
-    
+  (setq org-startup-indented t)
+  (setq org-startup-folded 'content))
+
 #+end_src
 * Which key
 [[https://github.com/justbur/emacs-which-key][which-key]] is a useful extension which displays available keybindings in a popup.
