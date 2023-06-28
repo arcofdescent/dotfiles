@@ -24,6 +24,11 @@
 
 (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
+;; font
+(set-face-attribute 'default nil
+		    :font "DejaVu Sans Mono"
+		    :height 160)
+
 ;; theme
 (use-package doom-themes
   :config
