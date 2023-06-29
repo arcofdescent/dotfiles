@@ -38,7 +38,7 @@
 (setq inhibit-startup-message t)
 
 ;; Turn off some unneeded UI elements
-(scroll-bar-mode -1)
+;(scroll-bar-mode -1)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 
@@ -92,3 +92,12 @@
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 (use-package magit)
+
+(use-package ivy
+  :init
+  (ivy-mode 1)
+  :config
+  (setq ivy-use-virtual-buffers t)
+  (setq ivy-wrap t)
+  (setq ivy-count-format "(%d/%d) ")
+  (setq enable-recursive-minibuffers t))
