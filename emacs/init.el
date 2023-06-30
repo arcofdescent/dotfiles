@@ -30,9 +30,7 @@
 		    :height 160)
 
 ;; theme
-(use-package doom-themes
-  :config
-  (load-theme 'doom-one t))
+(load-theme 'tango-dark)
 
 ;; Don't show the splash screen
 (setq inhibit-startup-message t)
