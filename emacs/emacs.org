@@ -162,3 +162,14 @@ Emacs config. This would go into ~/.config/emacs/init.el
     (global-company-mode t))
 
 #+end_src
+
+* Treemacs
+#+begin_src emacs-lisp
+
+  (use-package treemacs
+    :custom
+    (treemacs--icon-size 16)
+    :bind ("C-c t" . treemacs-select-window))
+  (use-package treemacs-evil)
+
+#+end_src

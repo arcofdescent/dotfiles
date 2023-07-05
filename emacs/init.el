@@ -115,3 +115,9 @@
 
   ;; Use company mode everywhere.
   (global-company-mode t))
+
+(use-package treemacs
+  :custom
+  (treemacs--icon-size 16)
+  :bind ("C-c t" . treemacs-select-window))
+(use-package treemacs-evil)
