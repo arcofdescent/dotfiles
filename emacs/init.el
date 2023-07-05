@@ -26,8 +26,8 @@
 
 ;; font
 (set-face-attribute 'default nil
-		    :font "DejaVu Sans Mono"
-		    :height 160)
+                    :font "DejaVu Sans Mono"
+                    :height 160)
 
 ;; theme
 (use-package doom-themes
@@ -57,6 +57,7 @@
   :init
   (setq evil-want-integration t)
   (setq evil-want-keybinding nil)
+  (setq evil-want-C-i-jump nil)
   :config
   (evil-mode 1)
 
@@ -90,7 +91,9 @@
 ;; Ibuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
-(use-package magit)
+(use-package magit
+  :ensure t
+  :bind ("C-x g" . magit-status))
 
 (use-package ivy
   :init
@@ -100,3 +103,15 @@
   (setq ivy-wrap t)
   (setq ivy-count-format "(%d/%d) ")
   (setq enable-recursive-minibuffers t))
+
+(use-package company
+  ;; Navigate in completion minibuffer with `C-n` and `C-p`.
+  :bind (:map company-active-map
+              ("C-n" . company-select-next)
+              ("C-p" . company-select-previous))
+  :config
+  ;; Provide instant autocompletion.
+  (setq company-idle-delay 0.3)
+
+  ;; Use company mode everywhere.
+  (global-company-mode t))

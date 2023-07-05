@@ -1,147 +1,164 @@
 
 Emacs config. This would go into ~/.config/emacs/init.el
 
+#+PROPERTY: header-args :tangle init.el
+
 * Package setup
 [[https://github.com/jwiegley/use-package][use-package]] helps in the configuration and loading of packages
 
-#+begin_src emacs-lisp :tangle init.el
+#+begin_src emacs-lisp
 
-;; Set up package.el to work with MELPA
-(require 'package)
+  ;; Set up package.el to work with MELPA
+  (require 'package)
 
-(setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                         ("org" . "https://orgmode.org/elpa/")
-                         ("elpa" . "https://elpa.gnu.org/packages/")))
+  (setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                           ("org" . "https://orgmode.org/elpa/")
+                           ("elpa" . "https://elpa.gnu.org/packages/")))
 
-(package-initialize)
-(unless package-archive-contents
-  (package-refresh-contents))
+  (package-initialize)
+  (unless package-archive-contents
+    (package-refresh-contents))
 
-;; Initialize use-package
-(unless (package-installed-p 'use-package)
-  (package-install 'use-package))
+  ;; Initialize use-package
+  (unless (package-installed-p 'use-package)
+    (package-install 'use-package))
 
-(require 'use-package)
-(setq use-package-always-ensure t)
+  (require 'use-package)
+  (setq use-package-always-ensure t)
 
 #+end_src
 * UI stuff
-#+begin_src emacs-lisp :tangle init.el
+#+begin_src emacs-lisp
 
-;; UTF-8 support
-(prefer-coding-system       'utf-8)
-(set-default-coding-systems 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
+  ;; UTF-8 support
+  (prefer-coding-system       'utf-8)
+  (set-default-coding-systems 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
 
-(setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
+  (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
-;; font
-(set-face-attribute 'default nil
-		    :font "DejaVu Sans Mono"
-		    :height 160)
+  ;; font
+  (set-face-attribute 'default nil
+                      :font "DejaVu Sans Mono"
+                      :height 160)
 
-;; theme
-(use-package doom-themes
-  :init (load-theme 'doom-one t))
+  ;; theme
+  (use-package doom-themes
+    :init (load-theme 'doom-one t))
 
-;; Don't show the splash screen
-(setq inhibit-startup-message t)
+  ;; Don't show the splash screen
+  (setq inhibit-startup-message t)
 
-;; Turn off some unneeded UI elements
-;(scroll-bar-mode -1)
-(menu-bar-mode -1)
-(tool-bar-mode -1)
+  ;; Turn off some unneeded UI elements
+  ;(scroll-bar-mode -1)
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
 
-(column-number-mode)
-(global-hl-line-mode +1)
-(global-display-line-numbers-mode t)
+  (column-number-mode)
+  (global-hl-line-mode +1)
+  (global-display-line-numbers-mode t)
 
-;; Disable line numbers for some modes
-(dolist (mode '(org-mode-hook
-                term-mode-hook
-                shell-mode-hook
-                treemacs-mode-hook
-                eshell-mode-hook))
-  (add-hook mode (lambda () (display-line-numbers-mode 0))))
+  ;; Disable line numbers for some modes
+  (dolist (mode '(org-mode-hook
+                  term-mode-hook
+                  shell-mode-hook
+                  treemacs-mode-hook
+                  eshell-mode-hook))
+    (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
 #+end_src
 * Evil mode
-#+begin_src emacs-lisp :tangle init.el
+#+begin_src emacs-lisp
 
-(use-package evil
-  :init
-  (setq evil-want-integration t)
-  (setq evil-want-keybinding nil)
-  :config
-  (evil-mode 1)
+  (use-package evil
+    :init
+    (setq evil-want-integration t)
+    (setq evil-want-keybinding nil)
+    (setq evil-want-C-i-jump nil)
+    :config
+    (evil-mode 1)
 
-  ;; Use visual line motions even outside of visual-line-mode buffers
-  (evil-global-set-key 'motion "j" 'evil-next-visual-line)
-  (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+    ;; Use visual line motions even outside of visual-line-mode buffers
+    (evil-global-set-key 'motion "j" 'evil-next-visual-line)
+    (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
 
-  (evil-set-initial-state 'messages-buffer-mode 'normal)
-  (evil-set-initial-state 'dashboard-mode 'normal))
+    (evil-set-initial-state 'messages-buffer-mode 'normal)
+    (evil-set-initial-state 'dashboard-mode 'normal))
 
-(use-package evil-collection
-  :after evil
-  :config
-  (evil-collection-init))
+  (use-package evil-collection
+    :after evil
+    :config
+    (evil-collection-init))
 
 #+end_src
 * Org Mode
-#+begin_src emacs-lisp :tangle init.el
+#+begin_src emacs-lisp
 
-(use-package org
-  :config
-  (setq org-startup-indented t)
-  (setq org-startup-folded 'content))
+  (use-package org
+    :config
+    (setq org-startup-indented t)
+    (setq org-startup-folded 'content))
 
 #+end_src
 * Which key
 [[https://github.com/justbur/emacs-which-key][which-key]] is a useful extension which displays available keybindings in a popup.
 
-#+begin_src emacs-lisp :tangle init.el
+#+begin_src emacs-lisp
 
-(use-package which-key
-  :config
-  (which-key-mode))
+  (use-package which-key
+    :config
+    (which-key-mode))
 
 #+end_src
 * Commenting code
-#+begin_src emacs-lisp :tangle init.el
+#+begin_src emacs-lisp
 
-;; gcc Comment a line
-;; gc Comment a visual block
-(use-package evil-commentary
-  :config
-  (evil-commentary-mode))
+  ;; gcc Comment a line
+  ;; gc Comment a visual block
+  (use-package evil-commentary
+    :config
+    (evil-commentary-mode))
 
 #+end_src
 * ibuffer
-#+begin_src emacs-lisp :tangle init.el
+#+begin_src emacs-lisp
 
-;; Ibuffer
-(global-set-key (kbd "C-x C-b") 'ibuffer)
+  ;; Ibuffer
+  (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 #+end_src
 * Magit
-#+begin_src emacs-lisp :tangle init.el
+#+begin_src emacs-lisp
 
-(use-package magit)
+  (use-package magit
+    :ensure t
+    :bind ("C-x g" . magit-status))
 
 #+end_src
 
 * Completion
-#+begin_src emacs-lisp :tangle init.el
+#+begin_src emacs-lisp
 
-(use-package ivy
-  :init
-  (ivy-mode 1)
-  :config
-  (setq ivy-use-virtual-buffers t)
-  (setq ivy-wrap t)
-  (setq ivy-count-format "(%d/%d) ")
-  (setq enable-recursive-minibuffers t))
+  (use-package ivy
+    :init
+    (ivy-mode 1)
+    :config
+    (setq ivy-use-virtual-buffers t)
+    (setq ivy-wrap t)
+    (setq ivy-count-format "(%d/%d) ")
+    (setq enable-recursive-minibuffers t))
+
+  (use-package company
+    ;; Navigate in completion minibuffer with `C-n` and `C-p`.
+    :bind (:map company-active-map
+                ("C-n" . company-select-next)
+                ("C-p" . company-select-previous))
+    :config
+    ;; Provide instant autocompletion.
+    (setq company-idle-delay 0.3)
+
+    ;; Use company mode everywhere.
+    (global-company-mode t))
 
 #+end_src
