@@ -76,7 +76,8 @@
 (use-package org
   :config
   (setq org-startup-indented t)
-  (setq org-startup-folded 'content))
+  (setq org-startup-folded 'content)
+  (setq org-hide-emphasis-markers t))
 
 (use-package which-key
   :config

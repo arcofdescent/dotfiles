@@ -98,7 +98,8 @@ Emacs config. This would go into ~/.config/emacs/init.el
   (use-package org
     :config
     (setq org-startup-indented t)
-    (setq org-startup-folded 'content))
+    (setq org-startup-folded 'content)
+    (setq org-hide-emphasis-markers t))
 
 #+end_src
 * Which key
