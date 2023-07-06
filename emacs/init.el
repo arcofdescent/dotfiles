@@ -117,12 +117,10 @@
   :bind (:map company-active-map
               ("C-n" . company-select-next)
               ("C-p" . company-select-previous))
-  :config
-  ;; Provide instant autocompletion.
-  (setq company-idle-delay 0.3)
-
-  ;; Use company mode everywhere.
-  (global-company-mode t))
+  :commands company-mode
+  :init
+  (add-hook 'prog-mode-hook #'company-mode)
+  (add-hook 'text-mode-hook #'company-mode))
 
 (use-package treemacs
   :custom
