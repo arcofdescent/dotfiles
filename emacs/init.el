@@ -37,9 +37,11 @@
 (setq inhibit-startup-message t)
 
 ;; Turn off some unneeded UI elements
-;(scroll-bar-mode -1)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
+
+(when (display-graphic-p)
+  (scroll-bar-mode -1))
 
 (column-number-mode)
 (global-hl-line-mode +1)
@@ -52,6 +54,9 @@
                 treemacs-mode-hook
                 eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+;; Show matching parens
+(show-paren-mode 1)
 
 (use-package evil
   :init
