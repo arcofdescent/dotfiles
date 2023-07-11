@@ -17,7 +17,7 @@ tztime local {
 }
 
 tztime utc {
-    format = "%H:%M:%S"
+    format = "%H:%M:%S UTC"
     timezone = "Etc/UTC"
 }
 
