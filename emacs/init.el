@@ -84,6 +84,11 @@
   (setq org-startup-folded 'content)
   (setq org-hide-emphasis-markers t)
 
+  (setq org-agenda-files '("~/Dropbox/notes"
+                           "/z/apps/synapse/README.org"
+                           "~/Dropbox/work/booknow/README.org"
+                           ))
+
   (setq org-link-frame-setup
    '((vm . vm-visit-folder-other-frame)
      (vm-imap . vm-visit-imap-folder-other-frame)
