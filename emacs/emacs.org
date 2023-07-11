@@ -114,6 +114,17 @@ Emacs config. This would go into ~/.config/emacs/init.el
        (wl . wl-other-frame))))
 
 #+end_src
+* Org babel
+#+begin_src emacs-lisp
+
+  (setq org-confirm-babel-evaluate nil)
+
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((python . t)
+     ))
+
+#+end_src
 * Which key
 [[https://github.com/justbur/emacs-which-key][which-key]] is a useful extension which displays available keybindings in a popup.
 

@@ -91,6 +91,13 @@
      (file . find-file)
      (wl . wl-other-frame))))
 
+(setq org-confirm-babel-evaluate nil)
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((python . t)
+   ))
+
 (use-package which-key
   :config
   (which-key-mode))
