@@ -58,6 +58,9 @@
 ;; Show matching parens
 (show-paren-mode 1)
 
+;; word wrap
+(global-visual-line-mode 1)
+
 (use-package evil
   :init
   (setq evil-want-integration t)

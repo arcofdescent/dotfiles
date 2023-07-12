@@ -72,6 +72,9 @@ Emacs config. This would go into ~/.config/emacs/init.el
   ;; Show matching parens
   (show-paren-mode 1)
 
+  ;; word wrap
+  (global-visual-line-mode 1)
+
 #+end_src
 * Evil mode
 #+begin_src emacs-lisp
