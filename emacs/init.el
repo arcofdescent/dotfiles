@@ -87,17 +87,18 @@
   (setq org-startup-folded 'content)
   (setq org-hide-emphasis-markers t)
 
-  (setq org-agenda-files '("~/Dropbox/notes"
-                           "/z/apps/synapse/README.org"
-                           "~/Dropbox/work/booknow/README.org"
-                           ))
-
   (setq org-link-frame-setup
    '((vm . vm-visit-folder-other-frame)
      (vm-imap . vm-visit-imap-folder-other-frame)
      (gnus . org-gnus-no-new-news)
      (file . find-file)
      (wl . wl-other-frame))))
+
+(setq org-agenda-files '("~/Dropbox/notes"
+                         "/z/apps/synapse/README.org"
+                         "~/Dropbox/work/booknow/README.org"))
+;; Ibuffer
+(global-set-key (kbd "C-x a") 'org-agenda)
 
 (setq org-confirm-babel-evaluate nil)
 
