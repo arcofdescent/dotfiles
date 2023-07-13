@@ -100,6 +100,16 @@
 ;; Ibuffer
 (global-set-key (kbd "C-x a") 'org-agenda)
 
+(use-package org-roam
+  :ensure t
+  :custom
+  (org-roam-directory "~/Dropbox/roam")
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n i" . org-roam-node-insert))
+  :config
+  (org-roam-setup))
+
 (setq org-confirm-babel-evaluate nil)
 
 (org-babel-do-load-languages
