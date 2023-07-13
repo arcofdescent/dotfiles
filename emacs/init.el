@@ -31,7 +31,7 @@
 
 ;; theme
 (use-package doom-themes
-  :init (load-theme 'doom-one t))
+  :init (load-theme 'doom-gruvbox t))
 
 ;; Don't show the splash screen
 (setq inhibit-startup-message t)
