@@ -86,6 +86,7 @@
   (setq org-startup-indented t)
   (setq org-startup-folded 'content)
   (setq org-hide-emphasis-markers t)
+  (org-display-inline-images t t)
 
   (setq org-link-frame-setup
    '((vm . vm-visit-folder-other-frame)
