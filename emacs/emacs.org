@@ -83,6 +83,9 @@ Emacs config. This would go into ~/.config/emacs/init.el
 
   ;; no pesky lock files
   (setq create-lockfiles nil)
+
+  ;; save place in files
+  (save-place-mode 1)
 #+end_src
 
 * Evil mode

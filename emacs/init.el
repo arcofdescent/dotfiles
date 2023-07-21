@@ -66,6 +66,9 @@
 ;; no pesky lock files
 (setq create-lockfiles nil)
 
+;; save place in files
+(save-place-mode 1)
+
 (use-package evil
   :init
   (setq evil-want-integration t)
