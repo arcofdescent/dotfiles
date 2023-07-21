@@ -190,6 +190,11 @@ Emacs config. This would go into ~/.config/emacs/init.el
 * Completion
 
 #+begin_src emacs-lisp
+  ;; Ido mode
+  (setq ido-enable-flex-matching t)
+  (setq ido-everywhere t)
+  (ido-mode 1)
+
   (use-package ivy
     :init
     (ivy-mode 1)

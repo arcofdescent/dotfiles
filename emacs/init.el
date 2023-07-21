@@ -134,6 +134,11 @@
   :ensure t
   :bind ("C-x g" . magit-status))
 
+;; Ido mode
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(ido-mode 1)
+
 (use-package ivy
   :init
   (ivy-mode 1)
