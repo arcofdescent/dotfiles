@@ -60,6 +60,12 @@
 ;; word wrap
 (global-visual-line-mode 1)
 
+;; no auto save
+(setq auto-save-default nil)
+
+;; no pesky lock files
+(setq create-lockfiles nil)
+
 (use-package evil
   :init
   (setq evil-want-integration t)

@@ -75,6 +75,16 @@ Emacs config. This would go into ~/.config/emacs/init.el
   (global-visual-line-mode 1)
 #+end_src
 
+* Misc
+
+#+begin_src emacs-lisp
+  ;; no auto save
+  (setq auto-save-default nil)
+
+  ;; no pesky lock files
+  (setq create-lockfiles nil)
+#+end_src
+
 * Evil mode
 
 #+begin_src emacs-lisp
