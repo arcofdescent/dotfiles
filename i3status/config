@@ -6,6 +6,7 @@ general {
 
 order += "battery all"
 order += "tztime utc"
+order += "tztime myt"
 order += "tztime local"
 
 battery all {
@@ -19,5 +20,10 @@ tztime local {
 tztime utc {
     format = "%H:%M:%S UTC"
     timezone = "Etc/UTC"
+}
+
+tztime myt {
+    format = "%H:%M:%S MYT"
+    timezone = "Asia/Kuching"
 }
 
