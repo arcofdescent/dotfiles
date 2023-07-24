@@ -92,7 +92,7 @@
 (use-package org
   :config
   (setq org-startup-indented t)
-  (setq org-startup-folded 'content)
+  (setq org-startup-folded t)
   (setq org-hide-emphasis-markers t)
   (setq org-startup-with-inline-images t)
 
