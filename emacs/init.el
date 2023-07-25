@@ -96,6 +96,9 @@
   (setq org-hide-emphasis-markers t)
   (setq org-startup-with-inline-images t)
 
+  (setq org-todo-keywords
+        '((sequence "TODO" "|" "DONE")))
+
   (setq org-link-frame-setup
    '((vm . vm-visit-folder-other-frame)
      (vm-imap . vm-visit-imap-folder-other-frame)
