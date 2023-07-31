@@ -97,14 +97,17 @@
   (setq org-startup-with-inline-images t)
 
   (setq org-todo-keywords
-        '((sequence "TODO" "|" "DONE")))
+        '((sequence "TODO" "PROG" "|" "DONE")))
+
+  (setq org-todo-keyword-faces
+        '(("TODO" . org-warning) ("PROG" . "yellow")))
 
   (setq org-link-frame-setup
-   '((vm . vm-visit-folder-other-frame)
-     (vm-imap . vm-visit-imap-folder-other-frame)
-     (gnus . org-gnus-no-new-news)
-     (file . find-file)
-     (wl . wl-other-frame))))
+        '((vm . vm-visit-folder-other-frame)
+          (vm-imap . vm-visit-imap-folder-other-frame)
+          (gnus . org-gnus-no-new-news)
+          (file . find-file)
+          (wl . wl-other-frame))))
 
 (setq org-agenda-files '("~/Dropbox/notes"
                          "/z/apps/synapse/README.org"
