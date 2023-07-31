@@ -97,7 +97,7 @@
   (setq org-startup-with-inline-images t)
 
   (setq org-todo-keywords
-        '((sequence "TODO" "PROG" "|" "DONE")))
+        '((sequence "TODO(t)" "PROG(p)" "|" "DONE(d)")))
 
   (setq org-todo-keyword-faces
         '(("TODO" . org-warning) ("PROG" . "yellow")))
