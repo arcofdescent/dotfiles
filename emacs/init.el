@@ -97,10 +97,10 @@
   (setq org-startup-with-inline-images t)
 
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "PROG(p)" "|" "DONE(d)")))
+        '((sequence "TODO(t)" "PROG(p)" "HOLD(h)" "|" "DONE(d)")))
 
   (setq org-todo-keyword-faces
-        '(("TODO" . org-warning) ("PROG" . "yellow")))
+        '(("TODO" . "light blue") ("PROG" . "yellow")))
 
   (setq org-link-frame-setup
         '((vm . vm-visit-folder-other-frame)
