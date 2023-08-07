@@ -136,6 +136,12 @@ Emacs config. This would go into ~/.config/emacs/init.el
             (wl . wl-other-frame))))
 #+end_src
 
+* org hide emphasis markers
+#+begin_src emacs-lisp
+  (use-package org-appear
+    :hook (org-mode . org-appear-mode))
+#+end_src
+
 * Org agenda
 
 #+begin_src emacs-lisp

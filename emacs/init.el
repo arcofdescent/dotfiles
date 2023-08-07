@@ -109,6 +109,9 @@
           (file . find-file)
           (wl . wl-other-frame))))
 
+(use-package org-appear
+  :hook (org-mode . org-appear-mode))
+
 (setq org-agenda-files '("~/Dropbox/notes"
                          "/z/apps/synapse/README.org"
                          "~/Dropbox/work/booknow/README.org"))
