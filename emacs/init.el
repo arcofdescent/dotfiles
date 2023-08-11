@@ -133,7 +133,7 @@
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((python . t)
-   ))
+   (perl . t)))
 
 (use-package which-key
   :config
