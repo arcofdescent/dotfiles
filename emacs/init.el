@@ -181,3 +181,5 @@
   (treemacs--icon-size 16)
   :bind ("C-c t" . treemacs-select-window))
 (use-package treemacs-evil)
+
+(global-set-key (kbd "C-x c") 'quick-calc)

@@ -250,3 +250,9 @@ Emacs config. This would go into ~/.config/emacs/init.el
   (use-package treemacs-evil)
 #+end_src
 
+* Calc
+
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-x c") 'quick-calc)
+#+end_src
+
