@@ -256,3 +256,14 @@ Emacs config. This would go into ~/.config/emacs/init.el
   (global-set-key (kbd "C-x c") 'quick-calc)
 #+end_src
 
+* web mode
+
+#+begin_src emacs-lisp
+  (use-package web-mode
+    :mode ("\\.html?\\'"
+           "\\.svelte\\'")
+    :config
+    (setq-default web-mode-code-indent-offset 2)
+    (setq-default web-mode-markup-indent-offset 2)
+    (setq-default web-mode-attribute-indent-offset 2))
+#+end_src

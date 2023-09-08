@@ -183,3 +183,11 @@
 (use-package treemacs-evil)
 
 (global-set-key (kbd "C-x c") 'quick-calc)
+
+(use-package web-mode
+  :mode ("\\.html?\\'"
+         "\\.svelte\\'")
+  :config
+  (setq-default web-mode-code-indent-offset 2)
+  (setq-default web-mode-markup-indent-offset 2)
+  (setq-default web-mode-attribute-indent-offset 2))
