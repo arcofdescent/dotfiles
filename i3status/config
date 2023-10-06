@@ -4,11 +4,6 @@ general {
     interval = 1
 }
 
-order += "battery all"
-order += "tztime utc"
-order += "tztime myt"
-order += "tztime local"
-
 battery all {
         format = "%status %percentage %remaining"
 }
@@ -18,12 +13,23 @@ tztime local {
 }
 
 tztime utc {
-    format = "%H:%M:%S UTC"
+    format = "%a %r UTC"
     timezone = "Etc/UTC"
 }
 
-tztime myt {
-    format = "%H:%M:%S MYT"
-    timezone = "Asia/Kuching"
+tztime cet {
+    format = "%a %r CET"
+    timezone = "CET"
 }
+
+tztime ast {
+    format = "%a %r AST"
+    timezone = "America/Curacao"
+}
+
+order += "battery all"
+order += "tztime ast"
+order += "tztime utc"
+order += "tztime cet"
+order += "tztime local"
 
