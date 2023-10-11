@@ -13,17 +13,17 @@ tztime local {
 }
 
 tztime utc {
-    format = "%a %r UTC"
+    format = "%H:%M UTC"
     timezone = "Etc/UTC"
 }
 
 tztime cet {
-    format = "%a %r CET"
+    format = "%H:%M CET"
     timezone = "CET"
 }
 
 tztime ast {
-    format = "%a %r AST"
+    format = "%H:%M AST"
     timezone = "America/Curacao"
 }
 
