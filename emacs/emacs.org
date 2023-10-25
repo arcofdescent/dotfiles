@@ -267,3 +267,9 @@ Emacs config. This would go into ~/.config/emacs/init.el
     (setq-default web-mode-markup-indent-offset 2)
     (setq-default web-mode-attribute-indent-offset 2))
 #+end_src
+
+* docker
+
+#+begin_src emacs-lisp
+  (use-package dockerfile-mode)
+#+end_src
