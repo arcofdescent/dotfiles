@@ -166,15 +166,15 @@
   (setq ivy-count-format "(%d/%d) ")
   (setq enable-recursive-minibuffers t))
 
-(use-package company
-  ;; Navigate in completion minibuffer with `C-n` and `C-p`.
-  :bind (:map company-active-map
-              ("C-n" . company-select-next)
-              ("C-p" . company-select-previous))
-  :commands company-mode
-  :init
-  (add-hook 'prog-mode-hook #'company-mode)
-  (add-hook 'text-mode-hook #'company-mode))
+;; (use-package company
+;;   ;; Navigate in completion minibuffer with `C-n` and `C-p`.
+;;   :bind (:map company-active-map
+;;               ("C-n" . company-select-next)
+;;               ("C-p" . company-select-previous))
+;;   :commands company-mode
+;;   :init
+;;   (add-hook 'prog-mode-hook #'company-mode)
+;;   (add-hook 'text-mode-hook #'company-mode))
 
 (use-package treemacs
   :custom
