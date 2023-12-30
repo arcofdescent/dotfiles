@@ -174,7 +174,8 @@ Emacs config. This would go into ~/.config/emacs/init.el
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((python . t)
-     (perl . t)))
+     (perl . t)
+     (js . t)))
 #+end_src
 
 * Which key
