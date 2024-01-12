@@ -26,7 +26,7 @@
 ;; font
 (set-face-attribute 'default nil
                     :font "DejaVu Sans Mono"
-                    :height 160)
+                    :height 110)
 
 ;; theme
 (use-package doom-themes
