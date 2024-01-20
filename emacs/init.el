@@ -194,4 +194,6 @@
   (setq-default web-mode-markup-indent-offset 2)
   (setq-default web-mode-attribute-indent-offset 2))
 
+(setq js-indent-level 2)
+
 (use-package dockerfile-mode)
