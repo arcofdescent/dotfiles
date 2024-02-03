@@ -197,3 +197,7 @@
 (setq js-indent-level 2)
 
 (use-package dockerfile-mode)
+
+(use-package markdown-mode
+  :ensure t
+  :init (setq markdown-command "multimarkdown"))

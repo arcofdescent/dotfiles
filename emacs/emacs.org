@@ -277,3 +277,11 @@ Emacs config. This would go into ~/.config/emacs/init.el
 #+begin_src emacs-lisp
   (use-package dockerfile-mode)
 #+end_src
+
+* Markdown
+
+#+begin_src emacs-lisp
+  (use-package markdown-mode
+    :ensure t
+    :init (setq markdown-command "multimarkdown"))
+#+end_src
