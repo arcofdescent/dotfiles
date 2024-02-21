@@ -201,3 +201,5 @@
 (use-package markdown-mode
   :ensure t
   :init (setq markdown-command "multimarkdown"))
+
+(use-package yaml-mode)

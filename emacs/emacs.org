@@ -285,3 +285,9 @@ Emacs config. This would go into ~/.config/emacs/init.el
     :ensure t
     :init (setq markdown-command "multimarkdown"))
 #+end_src
+
+* YAML
+
+#+begin_src emacs-lisp
+  (use-package yaml-mode)
+#+end_src
