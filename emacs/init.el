@@ -167,15 +167,15 @@
   (setq ivy-count-format "(%d/%d) ")
   (setq enable-recursive-minibuffers t))
 
-;; (use-package company
-;;   ;; Navigate in completion minibuffer with `C-n` and `C-p`.
-;;   :bind (:map company-active-map
-;;               ("C-n" . company-select-next)
-;;               ("C-p" . company-select-previous))
-;;   :commands company-mode
-;;   :init
-;;   (add-hook 'prog-mode-hook #'company-mode)
-;;   (add-hook 'text-mode-hook #'company-mode))
+(use-package company
+  ;; Navigate in completion minibuffer with `C-n` and `C-p`.
+  :bind (:map company-active-map
+              ("C-n" . company-select-next)
+              ("C-p" . company-select-previous))
+  :commands company-mode
+  :init
+  (add-hook 'prog-mode-hook #'company-mode)
+  (add-hook 'text-mode-hook #'company-mode))
 
 (use-package treemacs
   :custom
@@ -203,3 +203,115 @@
   :init (setq markdown-command "multimarkdown"))
 
 (use-package yaml-mode)
+
+(use-package quelpa)
+(use-package quelpa-use-package)
+
+(use-package s)
+(use-package dash)
+(use-package editorconfig)
+(use-package company)
+
+(use-package copilot
+  :quelpa (copilot :fetcher github
+                   :repo "copilot-emacs/copilot.el"
+                   :branch "main"
+                   :files ("dist" "*.el"))
+  :init
+  (add-hook 'prog-mode-hook #'copilot-mode))
+;; you can utilize :map :hook and :config to customize copilot
+
+(defun ra/no-copilot-mode ()
+  "Helper for `ra/no-copilot-modes'."
+  (copilot-mode -1))
+
+(defvar ra/no-copilot-modes '(shell-mode
+                              inferior-python-mode
+                              eshell-mode
+                              term-mode
+                              vterm-mode
+                              comint-mode
+                              compilation-mode
+                              debugger-mode
+                              dired-mode-hook
+                              compilation-mode-hook
+                              flutter-mode-hook
+                              minibuffer-mode-hook)
+  "Modes in which copilot is inconvenient.")
+
+(defun ra/copilot-disable-predicate ()
+  "When copilot should not automatically show completions."
+  (or ra/copilot-manual-mode
+      (member major-mode ra/no-copilot-modes)
+      (company--active-p)))
+
+(add-to-list 'copilot-disable-predicates #'ra/copilot-disable-predicate)
+
+(defvar ra/copilot-manual-mode nil
+  "When `t' will only show completions when manually triggered, e.g. via M-C-<return>.")
+
+(defun ra/copilot-change-activation ()
+  "Switch between three activation modes:
+      - automatic: copilot will automatically overlay completions
+      - manual: you need to press a key (M-C-<return>) to trigger completions
+      - off: copilot is completely disabled."
+  (interactive)
+  (if (and copilot-mode ra/copilot-manual-mode)
+      (progn
+        (message "deactivating copilot")
+        (global-copilot-mode -1)
+        (setq ra/copilot-manual-mode nil))
+    (if copilot-mode
+        (progn
+          (message "activating copilot manual mode")
+          (setq ra/copilot-manual-mode t))
+      (message "activating copilot mode")
+      (global-copilot-mode))))
+
+(define-key global-map (kbd "M-C-<escape>") #'ra/copilot-change-activation)
+
+(defun ra/copilot-complete-or-accept ()
+  "Command that either triggers a completion or accepts one if one
+    is available. Useful if you tend to hammer your keys like I do."
+  (interactive)
+  (if (copilot--overlay-visible)
+      (progn
+        (copilot-accept-completion)
+        (open-line 1)
+        (next-line))
+    (copilot-complete)))
+
+(define-key copilot-mode-map (kbd "M-C-<next>") #'copilot-next-completion)
+(define-key copilot-mode-map (kbd "M-C-<prior>") #'copilot-previous-completion)
+(define-key copilot-mode-map (kbd "M-C-<right>") #'copilot-accept-completion-by-word)
+(define-key copilot-mode-map (kbd "M-C-<down>") #'copilot-accept-completion-by-line)
+(define-key global-map (kbd "M-C-<return>") #'rk/copilot-complete-or-accept)
+
+(defun ra/copilot-tab ()
+  "Tab command that will complet with copilot if a completion is
+  available. Otherwise will try company, yasnippet or normal
+  tab-indent."
+  (interactive)
+  (or (copilot-accept-completion)
+      (company-yasnippet-or-completion)
+      (indent-for-tab-command)))
+
+(define-key global-map (kbd "C-<tab>") #'ra/copilot-tab)
+
+(defun ra/copilot-quit ()
+  "Run `copilot-clear-overlay' or `keyboard-quit'. If copilot is
+cleared, make sure the overlay doesn't come back too soon."
+  (interactive)
+  (condition-case err
+      (when copilot--overlay
+        (lexical-let ((pre-copilot-disable-predicates copilot-disable-predicates))
+                     (setq copilot-disable-predicates (list (lambda () t)))
+                     (copilot-clear-overlay)
+                     (run-with-idle-timer
+                      1.0
+                      nil
+                      (lambda ()
+                        (setq copilot-disable-predicates pre-copilot-disable-predicates)))))
+    (error handler)))
+
+(advice-add 'keyboard-quit :before #'ra/copilot-quit)
