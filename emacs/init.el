@@ -315,3 +315,5 @@ cleared, make sure the overlay doesn't come back too soon."
     (error handler)))
 
 (advice-add 'keyboard-quit :before #'ra/copilot-quit)
+
+(setq warning-minimum-level :error)
