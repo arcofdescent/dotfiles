@@ -22,13 +22,10 @@ for_window [class=".*"] title_format "<span size='smaller'>  %title</span>"
 #font pango:DejaVu Sans Mono 8
 
 gaps outer 4
-gaps inner 4
+gaps inner 8
 
 # program launcher
 bindsym $mod+p exec "rofi -show combi"
-#set $fzf_launcher kitty --config $HOME/.config/kitty/fzf-launcher.conf --class fzf-launcher --detach sh -c sway-launcher-desktop
-#bindsym $mod+p exec $fzf_launcher
-#for_window [class="fzf-launcher"] focus, floating enabled, border pixel 1
 
 # switching workspaces
 bindsym $mod+bracketright workspace next
@@ -38,16 +35,19 @@ bindsym $mod+bracketleft workspace prev
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
 
+# password store
+#exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=ssh,secrets,pkcs11
+
 # Use pactl to adjust volume in PulseAudio.
-set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+#set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 # brightness
-bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 1000-
-bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +1000
+#bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 1000-
+#bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +1000
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -110,10 +110,10 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # lock screen
-bindsym $mod+z exec "xscreensaver-command -lock"
+bindsym $mod+z exec "i3lock -c 111111"
 
 # power off monitor
-bindsym $mod+Shift+z exec "sleep 2; xset dpms force off"
+#bindsym $mod+Shift+z exec "sleep 2; xset dpms force off"
 
 # focus the child container
 #bindsym $mod+d focus child
