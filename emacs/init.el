@@ -136,6 +136,10 @@
    (perl . t)
    (js . t)))
 
+(use-package org-bullets
+  :init
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
 (use-package which-key
   :config
   (which-key-mode))

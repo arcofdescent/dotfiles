@@ -1,6 +1,8 @@
 
 Emacs config. This would go into ~/.config/emacs/init.el
 
+To tangle - C-c C-v C-t
+
 #+PROPERTY: header-args :tangle init.el
 
 * Package setup
@@ -176,6 +178,14 @@ Emacs config. This would go into ~/.config/emacs/init.el
    '((python . t)
      (perl . t)
      (js . t)))
+#+end_src
+
+* Org Bullets
+
+#+begin_src emacs-lisp
+  (use-package org-bullets
+    :init
+    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 #+end_src
 
 * Which key
