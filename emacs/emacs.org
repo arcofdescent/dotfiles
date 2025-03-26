@@ -75,6 +75,9 @@ To tangle - C-c C-v C-t
 
   ;; word wrap
   (global-visual-line-mode 1)
+
+  ;; lazy count for search
+  (setq isearch-lazy-count t)
 #+end_src
 
 * Misc

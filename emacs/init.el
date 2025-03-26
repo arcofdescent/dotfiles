@@ -60,6 +60,9 @@
 ;; word wrap
 (global-visual-line-mode 1)
 
+;; lazy count for search
+(setq isearch-lazy-count t)
+
 ;; no auto save
 (setq auto-save-default nil)
 
