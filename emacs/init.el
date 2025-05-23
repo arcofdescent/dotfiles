@@ -116,7 +116,6 @@
   :hook (org-mode . org-appear-mode))
 
 (setq org-agenda-files '("~/Dropbox/notes"
-                         "/z/apps/synapse/README.org"
                          "~/Dropbox/work/booknow/README.org"))
 ;; Ibuffer
 (global-set-key (kbd "C-x a") 'org-agenda)

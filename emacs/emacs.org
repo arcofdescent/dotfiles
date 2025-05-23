@@ -151,7 +151,6 @@ To tangle - C-c C-v C-t
 
 #+begin_src emacs-lisp
   (setq org-agenda-files '("~/Dropbox/notes"
-                           "/z/apps/synapse/README.org"
                            "~/Dropbox/work/booknow/README.org"))
   ;; Ibuffer
   (global-set-key (kbd "C-x a") 'org-agenda)
