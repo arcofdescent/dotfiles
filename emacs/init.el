@@ -63,6 +63,9 @@
 ;; lazy count for search
 (setq isearch-lazy-count t)
 
+;; windmove
+(windmove-default-keybindings)
+
 ;; no auto save
 (setq auto-save-default nil)
 

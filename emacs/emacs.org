@@ -78,6 +78,9 @@ To tangle - C-c C-v C-t
 
   ;; lazy count for search
   (setq isearch-lazy-count t)
+
+  ;; windmove
+  (windmove-default-keybindings)
 #+end_src
 
 * Misc
