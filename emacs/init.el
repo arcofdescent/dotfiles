@@ -75,6 +75,17 @@
 ;; save place in files
 (save-place-mode 1)
 
+;; General Tree-sitter configuration
+(require 'treesit)
+(setq treesit-extra-load-path '(expand-file-name "~/.config/emacs/tree-sitter/")) ;; Ensure Emacs looks here, though it often does by default
+
+;; Map file extensions to Tree-sitter major modes
+(add-to-list 'auto-mode-alist '("\\.py\\'" . python-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . tsx-ts-mode)) ; This is crucial for TSX
+(add-to-list 'auto-mode-alist '("\\.jsx\\'" . js-ts-mode)) ; This is crucial for JSX
+
 (use-package evil
   :init
   (setq evil-want-integration t)
@@ -162,29 +173,123 @@
   :ensure t
   :bind ("C-x g" . magit-status))
 
-;; Ido mode
-(setq ido-enable-flex-matching t)
-(setq ido-everywhere t)
-(ido-mode 1)
+(use-package corfu
+  :ensure t
+  ;; Optional customizations
+  :custom
+  (corfu-cycle t)                 ; Allows cycling through candidates
+  (corfu-auto t)                  ; Enable auto completion
+  (corfu-auto-prefix 2)           ; Minimum length of prefix for completion
+  (corfu-auto-delay 0)            ; No delay for completion
+  (corfu-popupinfo-delay '(0.5 . 0.2))  ; Automatically update info popup after that numver of seconds
+  (corfu-preview-current 'insert) ; insert previewed candidate
+  (corfu-preselect 'prompt)
+  (corfu-on-exact-match nil)      ; Don't auto expand tempel snippets
+  ;; Optionally use TAB for cycling, default is `corfu-complete'.
+  :bind (:map corfu-map
+	      ("M-SPC"      . corfu-insert-separator)
+	      ("TAB"        . corfu-next)
+	      ([tab]        . corfu-next)
+	      ("S-TAB"      . corfu-previous)
+	      ([backtab]    . corfu-previous)
+	      ("S-<return>" . corfu-insert)
+	      ("RET"        . corfu-insert))
 
-(use-package ivy
   :init
-  (ivy-mode 1)
+  (global-corfu-mode)
+  (corfu-history-mode)
+  (corfu-popupinfo-mode) ; Popup completion info
   :config
-  (setq ivy-use-virtual-buffers t)
-  (setq ivy-wrap t)
-  (setq ivy-count-format "(%d/%d) ")
-  (setq enable-recursive-minibuffers t))
+  (add-hook 'eshell-mode-hook
+            (lambda () (setq-local corfu-quit-at-boundary t
+                                   corfu-quit-no-match t
+                                   corfu-auto nil)
+              (corfu-mode))
+            nil
+            t))
 
-(use-package company
-  ;; Navigate in completion minibuffer with `C-n` and `C-p`.
-  :bind (:map company-active-map
-              ("C-n" . company-select-next)
-              ("C-p" . company-select-previous))
-  :commands company-mode
-  :init
-  (add-hook 'prog-mode-hook #'company-mode)
-  (add-hook 'text-mode-hook #'company-mode))
+;; (use-package flycheck
+;;   :ensure t
+;;   :init (global-flycheck-mode)
+;;   :bind (:map flycheck-mode-map
+;; 	      ("M-n" . flycheck-next-error) ; optional but recommended error navigation
+;; 	      ("M-p" . flycheck-previous-error)))
+
+;; (use-package lsp-mode
+;;   :diminish "LSP"
+;;   :ensure t
+;;   :hook ((lsp-mode . lsp-diagnostics-mode)
+;; 	 (lsp-mode . lsp-enable-which-key-integration)
+;; 	 ((tsx-ts-mode
+;; 	   typescript-ts-mode
+;; 	   js-ts-mode) . lsp-deferred))
+;;   :custom
+;;   (lsp-keymap-prefix "C-c l")           ; Prefix for LSP actions
+;;   (lsp-completion-provider :none)       ; Using Corfu as the provider
+;;   (lsp-diagnostics-provider :flycheck)
+;;   (lsp-session-file (locate-user-emacs-file ".lsp-session"))
+;;   (lsp-log-io nil)                      ; IMPORTANT! Use only for debugging! Drastically affects performance
+;;   (lsp-keep-workspace-alive nil)        ; Close LSP server if all project buffers are closed
+;;   (lsp-idle-delay 0.5)                  ; Debounce timer for `after-change-function'
+;;   ;; core
+;;   (lsp-enable-xref t)                   ; Use xref to find references
+;;   (lsp-auto-configure t)                ; Used to decide between current active servers
+;;   (lsp-eldoc-enable-hover t)            ; Display signature information in the echo area
+;;   (lsp-enable-dap-auto-configure t)     ; Debug support
+;;   (lsp-enable-file-watchers nil)
+;;   (lsp-enable-folding nil)              ; I disable folding since I use origami
+;;   (lsp-enable-imenu t)
+;;   (lsp-enable-indentation nil)          ; I use prettier
+;;   (lsp-enable-links nil)                ; No need since we have `browse-url'
+;;   (lsp-enable-on-type-formatting nil)   ; Prettier handles this
+;;   (lsp-enable-suggest-server-download t) ; Useful prompt to download LSP providers
+;;   (lsp-enable-symbol-highlighting t)     ; Shows usages of symbol at point in the current buffer
+;;   (lsp-enable-text-document-color nil)   ; This is Treesitter's job
+
+;;   (lsp-ui-sideline-show-hover nil)      ; Sideline used only for diagnostics
+;;   (lsp-ui-sideline-diagnostic-max-lines 20) ; 20 lines since typescript errors can be quite big
+;;   ;; completion
+;;   (lsp-completion-enable t)
+;;   (lsp-completion-enable-additional-text-edit t) ; Ex: auto-insert an import for a completion candidate
+;;   (lsp-enable-snippet t)                         ; Important to provide full JSX completion
+;;   (lsp-completion-show-kind t)                   ; Optional
+;;   ;; headerline
+;;   (lsp-headerline-breadcrumb-enable t)  ; Optional, I like the breadcrumbs
+;;   (lsp-headerline-breadcrumb-enable-diagnostics nil) ; Don't make them red, too noisy
+;;   (lsp-headerline-breadcrumb-enable-symbol-numbers nil)
+;;   (lsp-headerline-breadcrumb-icons-enable nil)
+;;   ;; modeline
+;;   (lsp-modeline-code-actions-enable nil) ; Modeline should be relatively clean
+;;   (lsp-modeline-diagnostics-enable nil)  ; Already supported through `flycheck'
+;;   (lsp-modeline-workspace-status-enable nil) ; Modeline displays "LSP" when lsp-mode is enabled
+;;   (lsp-signature-doc-lines 1)                ; Don't raise the echo area. It's distracting
+;;   (lsp-ui-doc-use-childframe t)              ; Show docs for symbol at point
+;;   (lsp-eldoc-render-all nil)            ; This would be very useful if it would respect `lsp-signature-doc-lines', currently it's distracting
+;;   ;; lens
+;;   (lsp-lens-enable nil)                 ; Optional, I don't need it
+;;   ;; semantic
+;;   (lsp-semantic-tokens-enable nil)      ; Related to highlighting, and we defer to treesitter
+
+;;   :init
+;;   (setq lsp-use-plists t))
+
+;; (use-package lsp-completion
+;;   :no-require
+;;   :hook ((lsp-mode . lsp-completion-mode)))
+
+;; (use-package lsp-ui
+;;   :ensure t
+;;   :commands
+;;   (lsp-ui-doc-show
+;;    lsp-ui-doc-glance)
+;;   :bind (:map lsp-mode-map
+;;               ("C-c C-d" . 'lsp-ui-doc-glance))
+;;   :after (lsp-mode evil)
+;;   :config (setq lsp-ui-doc-enable t
+;;                 evil-lookup-func #'lsp-ui-doc-glance ; Makes K in evil-mode toggle the doc for symbol at point
+;;                 lsp-ui-doc-show-with-cursor nil      ; Don't show doc when cursor is over symbol - too distracting
+;;                 lsp-ui-doc-include-signature t       ; Show signature
+;;                 lsp-ui-doc-position 'at-point))
 
 (use-package treemacs
   :custom
@@ -194,16 +299,20 @@
 
 (global-set-key (kbd "C-x c") 'quick-calc)
 
-(use-package web-mode
-  :mode ("\\.html?\\'"
-         "\\.svelte\\'"
-         "\\.js\\'")
+(use-package treesit-auto
+  :defer t
+  :custom
+  ;; 'prompt will ask before installing. 't will install automatically.
+  (treesit-auto-install 'prompt)
   :config
-  (setq-default web-mode-code-indent-offset 2)
-  (setq-default web-mode-markup-indent-offset 2)
-  (setq-default web-mode-attribute-indent-offset 2))
-
-(setq js-indent-level 2)
+  ;; Add specific language sources if treesit-auto doesn't have them built-in,
+  ;; though it usually does for common ones like typescript.
+  ;; (add-to-list 'treesit-auto-lang-recipe-alist '(typescript (:url "https://github.com/tree-sitter/tree-sitter-typescript.git" :source-dir "typescript/src" :library-name "typescript")))
+  ;; (add-to-list 'treesit-auto-lang-recipe-alist '(jsx (:url "https://github.com/tree-sitter/tree-sitter-javascript.git" :source-dir "jsx/src" :library-name "jsx")))
+  
+  ;; This tells treesit-auto to handle all languages it knows about
+  (treesit-auto-add-to-auto-mode-alist 'all) 
+  (global-treesit-auto-mode))
 
 (use-package dockerfile-mode)
 
