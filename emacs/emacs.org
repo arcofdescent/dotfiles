@@ -242,40 +242,70 @@ To tangle - C-c C-v C-t
 * Completion
 
 #+begin_src emacs-lisp
-  (use-package corfu
-    :ensure t
-    ;; Optional customizations
-    :custom
-    (corfu-cycle t)                 ; Allows cycling through candidates
-    (corfu-auto t)                  ; Enable auto completion
-    (corfu-auto-prefix 2)           ; Minimum length of prefix for completion
-    (corfu-auto-delay 0)            ; No delay for completion
-    (corfu-popupinfo-delay '(0.5 . 0.2))  ; Automatically update info popup after that numver of seconds
-    (corfu-preview-current 'insert) ; insert previewed candidate
-    (corfu-preselect 'prompt)
-    (corfu-on-exact-match nil)      ; Don't auto expand tempel snippets
-    ;; Optionally use TAB for cycling, default is `corfu-complete'.
-    :bind (:map corfu-map
-  	      ("M-SPC"      . corfu-insert-separator)
-  	      ("TAB"        . corfu-next)
-  	      ([tab]        . corfu-next)
-  	      ("S-TAB"      . corfu-previous)
-  	      ([backtab]    . corfu-previous)
-  	      ("S-<return>" . corfu-insert)
-  	      ("RET"        . corfu-insert))
-
+  ;; Vertico for minibuffer completion
+  (use-package vertico
     :init
-    (global-corfu-mode)
-    (corfu-history-mode)
-    (corfu-popupinfo-mode) ; Popup completion info
+    (vertico-mode))
+
+  ;; Marginalia for annotations in completion
+  (use-package marginalia
+    :after vertico
+    :init
+    (marginalia-mode))
+
+  ;; Orderless for fuzzy matching
+  (use-package orderless
+    :init
+    ;; You can customize completion styles per category
+    (setq completion-styles '(orderless basic))
+    (setq completion-category-defaults nil)
+    (setq completion-category-overrides '((file (styles . (partial-completion basic))))))
+
+  ;; Consult for enhanced search and navigation
+  (use-package consult
+    :after (vertico orderless)
+    :init
+    ;; Optional: Enable richer previews for some consult commands
+    (setq consult-preview-key 'any)
+    :bind
+    ("C-x b" . consult-buffer) ; Replace default switch-to-buffer
+    ("M-x" . consult-extended-command) ; Replace default M-x
+    ("C-x C-f" . consult-find)) ; Replace default find-file
+
+  ;; Company-mode for in-buffer code completion
+  (use-package company
+    :defer t ; Load company when needed
+    :init
+    (global-company-mode)
     :config
-    (add-hook 'eshell-mode-hook
-              (lambda () (setq-local corfu-quit-at-boundary t
-                                     corfu-quit-no-match t
-                                     corfu-auto nil)
-                (corfu-mode))
-              nil
-              t))
+    ;; Adjust settings as desired
+    (setq company-idle-delay 0.1) ; Shorter delay for popup
+    (setq company-minimum-prefix-length 2) ; Start completion after 2 characters
+    (setq company-show-numbers t) ; Show numbers for quick selection
+    (setq company-tooltip-limit 10)) ; Limit number of suggestions in tooltip
+
+  ;; Example: Setting up LSP mode for Python and JavaScript completion with Company
+  ;; (You would install `lsp-mode` and `dap-mode` for a full setup)
+  (use-package lsp-mode
+    :commands (lsp lsp-deferred)
+    :init
+    (setq lsp-keymap-prefix "C-c l")
+    :hook
+    (python-mode . lsp-deferred)
+    (js-mode . lsp-deferred) ; For JavaScript
+    (typescript-mode . lsp-deferred) ; For TypeScript if you use it
+    :config
+    (lsp-enable-which-key-integration t))
+
+  (use-package lsp-ui
+    :after lsp-mode
+    :commands lsp-ui-mode
+    :hook (lsp-mode . lsp-ui-mode))
+
+  ;; Integrate Company with LSP
+  (with-eval-after-load 'lsp-mode
+    (add-hook 'lsp-after-initialize-hook (lambda ()
+                                           (setq-local company-backends '(company-lsp company-dabbrev-code)))))
 #+end_src
 
 * Linter

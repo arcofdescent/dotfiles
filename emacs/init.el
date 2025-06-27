@@ -1,10 +1,27 @@
 ;; Set up package.el to work with MELPA
+;; Optional: If you want to see what Emacs is doing with proxy settings
+
 (require 'package)
 
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("elpa" . "https://elpa.gnu.org/packages/")))
 
 (package-initialize)
+
+;; Add this to your init.el for testing purposes
+(setq gnutls-verify-error nil)
+(setq tls-checktrust nil)
+
+;; --- Proxy Configuration to bypass GnuTLS issues ---
+; (setq url-proxy-services
+;       '(("no_proxy" . "^\\(localhost\\|10\\.\\|127\\.0\\.0\\.1\\|192\\.168\\.\\)") ; Your local IP ranges
+;         ("http"  . "http://139.59.47.178:3128")
+;         ("https" . "http://139.59.47.178:3128")))
+; (setq url-debug t)
+
+(setq gnutls-log-level 4)
+(setq gnutls-default-trust-file "/etc/ssl/certs/ca-certificates.crt")
+
 (unless package-archive-contents
   (package-refresh-contents))
 
@@ -14,6 +31,12 @@
 
 (require 'use-package)
 (setq use-package-always-ensure t)
+
+(use-package exec-path-from-shell
+  :ensure t ; Ensures the package is installed
+  :init
+  ;; Initialize it to grab PATH and other variables from your shell
+  (exec-path-from-shell-initialize))
 
 ;; UTF-8 support
 (prefer-coding-system       'utf-8)
@@ -26,7 +49,7 @@
 ;; font
 (set-face-attribute 'default nil
                     :font "DejaVu Sans Mono"
-                    :height 110)
+                    :height 90)
 
 ;; theme
 (use-package doom-themes
@@ -75,16 +98,8 @@
 ;; save place in files
 (save-place-mode 1)
 
-;; General Tree-sitter configuration
-(require 'treesit)
-(setq treesit-extra-load-path '(expand-file-name "~/.config/emacs/tree-sitter/")) ;; Ensure Emacs looks here, though it often does by default
-
-;; Map file extensions to Tree-sitter major modes
-(add-to-list 'auto-mode-alist '("\\.py\\'" . python-ts-mode))
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js-ts-mode))
-(add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-ts-mode))
-(add-to-list 'auto-mode-alist '("\\.tsx\\'" . tsx-ts-mode)) ; This is crucial for TSX
-(add-to-list 'auto-mode-alist '("\\.jsx\\'" . js-ts-mode)) ; This is crucial for JSX
+;; set warning level
+(setq warning-minimum-level :error)
 
 (use-package evil
   :init
@@ -134,16 +149,6 @@
 ;; Ibuffer
 (global-set-key (kbd "C-x a") 'org-agenda)
 
-(use-package org-roam
-  :ensure t
-  :custom
-  (org-roam-directory "~/Dropbox/roam")
-  :bind (("C-c n l" . org-roam-buffer-toggle)
-         ("C-c n f" . org-roam-node-find)
-         ("C-c n i" . org-roam-node-insert))
-  :config
-  (org-roam-setup))
-
 (setq org-confirm-babel-evaluate nil)
 
 (org-babel-do-load-languages
@@ -173,123 +178,39 @@
   :ensure t
   :bind ("C-x g" . magit-status))
 
-(use-package corfu
-  :ensure t
-  ;; Optional customizations
-  :custom
-  (corfu-cycle t)                 ; Allows cycling through candidates
-  (corfu-auto t)                  ; Enable auto completion
-  (corfu-auto-prefix 2)           ; Minimum length of prefix for completion
-  (corfu-auto-delay 0)            ; No delay for completion
-  (corfu-popupinfo-delay '(0.5 . 0.2))  ; Automatically update info popup after that numver of seconds
-  (corfu-preview-current 'insert) ; insert previewed candidate
-  (corfu-preselect 'prompt)
-  (corfu-on-exact-match nil)      ; Don't auto expand tempel snippets
-  ;; Optionally use TAB for cycling, default is `corfu-complete'.
-  :bind (:map corfu-map
-	      ("M-SPC"      . corfu-insert-separator)
-	      ("TAB"        . corfu-next)
-	      ([tab]        . corfu-next)
-	      ("S-TAB"      . corfu-previous)
-	      ([backtab]    . corfu-previous)
-	      ("S-<return>" . corfu-insert)
-	      ("RET"        . corfu-insert))
-
+;; Vertico for minibuffer completion
+(use-package vertico
   :init
-  (global-corfu-mode)
-  (corfu-history-mode)
-  (corfu-popupinfo-mode) ; Popup completion info
+  (vertico-mode))
+
+;; Marginalia for annotations in completion
+(use-package marginalia
+  :after vertico
+  :init
+  (marginalia-mode))
+
+;; Orderless for fuzzy matching
+(use-package orderless
+  :init
+  ;; You can customize completion styles per category
+  (setq completion-styles '(orderless basic))
+  (setq completion-category-defaults nil)
+  (setq completion-category-overrides '((file (styles . (partial-completion basic))))))
+
+;; Company-mode for in-buffer code completion
+(use-package company
+  :init
+  (global-company-mode)
   :config
-  (add-hook 'eshell-mode-hook
-            (lambda () (setq-local corfu-quit-at-boundary t
-                                   corfu-quit-no-match t
-                                   corfu-auto nil)
-              (corfu-mode))
-            nil
-            t))
-
-;; (use-package flycheck
-;;   :ensure t
-;;   :init (global-flycheck-mode)
-;;   :bind (:map flycheck-mode-map
-;; 	      ("M-n" . flycheck-next-error) ; optional but recommended error navigation
-;; 	      ("M-p" . flycheck-previous-error)))
-
-;; (use-package lsp-mode
-;;   :diminish "LSP"
-;;   :ensure t
-;;   :hook ((lsp-mode . lsp-diagnostics-mode)
-;; 	 (lsp-mode . lsp-enable-which-key-integration)
-;; 	 ((tsx-ts-mode
-;; 	   typescript-ts-mode
-;; 	   js-ts-mode) . lsp-deferred))
-;;   :custom
-;;   (lsp-keymap-prefix "C-c l")           ; Prefix for LSP actions
-;;   (lsp-completion-provider :none)       ; Using Corfu as the provider
-;;   (lsp-diagnostics-provider :flycheck)
-;;   (lsp-session-file (locate-user-emacs-file ".lsp-session"))
-;;   (lsp-log-io nil)                      ; IMPORTANT! Use only for debugging! Drastically affects performance
-;;   (lsp-keep-workspace-alive nil)        ; Close LSP server if all project buffers are closed
-;;   (lsp-idle-delay 0.5)                  ; Debounce timer for `after-change-function'
-;;   ;; core
-;;   (lsp-enable-xref t)                   ; Use xref to find references
-;;   (lsp-auto-configure t)                ; Used to decide between current active servers
-;;   (lsp-eldoc-enable-hover t)            ; Display signature information in the echo area
-;;   (lsp-enable-dap-auto-configure t)     ; Debug support
-;;   (lsp-enable-file-watchers nil)
-;;   (lsp-enable-folding nil)              ; I disable folding since I use origami
-;;   (lsp-enable-imenu t)
-;;   (lsp-enable-indentation nil)          ; I use prettier
-;;   (lsp-enable-links nil)                ; No need since we have `browse-url'
-;;   (lsp-enable-on-type-formatting nil)   ; Prettier handles this
-;;   (lsp-enable-suggest-server-download t) ; Useful prompt to download LSP providers
-;;   (lsp-enable-symbol-highlighting t)     ; Shows usages of symbol at point in the current buffer
-;;   (lsp-enable-text-document-color nil)   ; This is Treesitter's job
-
-;;   (lsp-ui-sideline-show-hover nil)      ; Sideline used only for diagnostics
-;;   (lsp-ui-sideline-diagnostic-max-lines 20) ; 20 lines since typescript errors can be quite big
-;;   ;; completion
-;;   (lsp-completion-enable t)
-;;   (lsp-completion-enable-additional-text-edit t) ; Ex: auto-insert an import for a completion candidate
-;;   (lsp-enable-snippet t)                         ; Important to provide full JSX completion
-;;   (lsp-completion-show-kind t)                   ; Optional
-;;   ;; headerline
-;;   (lsp-headerline-breadcrumb-enable t)  ; Optional, I like the breadcrumbs
-;;   (lsp-headerline-breadcrumb-enable-diagnostics nil) ; Don't make them red, too noisy
-;;   (lsp-headerline-breadcrumb-enable-symbol-numbers nil)
-;;   (lsp-headerline-breadcrumb-icons-enable nil)
-;;   ;; modeline
-;;   (lsp-modeline-code-actions-enable nil) ; Modeline should be relatively clean
-;;   (lsp-modeline-diagnostics-enable nil)  ; Already supported through `flycheck'
-;;   (lsp-modeline-workspace-status-enable nil) ; Modeline displays "LSP" when lsp-mode is enabled
-;;   (lsp-signature-doc-lines 1)                ; Don't raise the echo area. It's distracting
-;;   (lsp-ui-doc-use-childframe t)              ; Show docs for symbol at point
-;;   (lsp-eldoc-render-all nil)            ; This would be very useful if it would respect `lsp-signature-doc-lines', currently it's distracting
-;;   ;; lens
-;;   (lsp-lens-enable nil)                 ; Optional, I don't need it
-;;   ;; semantic
-;;   (lsp-semantic-tokens-enable nil)      ; Related to highlighting, and we defer to treesitter
-
-;;   :init
-;;   (setq lsp-use-plists t))
-
-;; (use-package lsp-completion
-;;   :no-require
-;;   :hook ((lsp-mode . lsp-completion-mode)))
-
-;; (use-package lsp-ui
-;;   :ensure t
-;;   :commands
-;;   (lsp-ui-doc-show
-;;    lsp-ui-doc-glance)
-;;   :bind (:map lsp-mode-map
-;;               ("C-c C-d" . 'lsp-ui-doc-glance))
-;;   :after (lsp-mode evil)
-;;   :config (setq lsp-ui-doc-enable t
-;;                 evil-lookup-func #'lsp-ui-doc-glance ; Makes K in evil-mode toggle the doc for symbol at point
-;;                 lsp-ui-doc-show-with-cursor nil      ; Don't show doc when cursor is over symbol - too distracting
-;;                 lsp-ui-doc-include-signature t       ; Show signature
-;;                 lsp-ui-doc-position 'at-point))
+  ;; Adjust settings as desired
+  (setq company-idle-delay 0.1) ; Shorter delay for popup
+  (setq company-minimum-prefix-length 2) ; Start completion after 2 characters
+  (setq company-show-numbers t) ; Show numbers for quick selection
+  (setq company-tooltip-limit 10)
+  ;; Explicitly add company-lsp to the beginning of the backends
+  ;; This ensures LSP completions are prioritized.
+  ; (add-to-list 'company-backends 'company-lsp)
+  )
 
 (use-package treemacs
   :custom
@@ -299,21 +220,6 @@
 
 (global-set-key (kbd "C-x c") 'quick-calc)
 
-(use-package treesit-auto
-  :defer t
-  :custom
-  ;; 'prompt will ask before installing. 't will install automatically.
-  (treesit-auto-install 'prompt)
-  :config
-  ;; Add specific language sources if treesit-auto doesn't have them built-in,
-  ;; though it usually does for common ones like typescript.
-  ;; (add-to-list 'treesit-auto-lang-recipe-alist '(typescript (:url "https://github.com/tree-sitter/tree-sitter-typescript.git" :source-dir "typescript/src" :library-name "typescript")))
-  ;; (add-to-list 'treesit-auto-lang-recipe-alist '(jsx (:url "https://github.com/tree-sitter/tree-sitter-javascript.git" :source-dir "jsx/src" :library-name "jsx")))
-  
-  ;; This tells treesit-auto to handle all languages it knows about
-  (treesit-auto-add-to-auto-mode-alist 'all) 
-  (global-treesit-auto-mode))
-
 (use-package dockerfile-mode)
 
 (use-package markdown-mode
@@ -322,13 +228,84 @@
 
 (use-package yaml-mode)
 
+(use-package s
+  :ensure t)
+(use-package dash
+  :ensure t)
 (use-package quelpa)
 (use-package quelpa-use-package)
 
-(use-package s)
-(use-package dash)
-(use-package editorconfig)
-(use-package company)
+;; Tree-sitter core configuration
+(use-package tree-sitter
+  :ensure t
+  :config
+  ;; Enable tree-sitter-mode globally if you want it to activate for all supported modes
+  ;; However, it's often better to enable it on a per-mode basis as shown below
+  ;; (global-tree-sitter-mode)
+    
+  ;; Map file extensions to Tree-sitter major modes
+  (add-to-list 'auto-mode-alist '("\\.py\\'" . python-ts-mode))
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . js-ts-mode))
+  (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-ts-mode))
+  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . tsx-ts-mode)) ; This is crucial for TSX
+  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . js-ts-mode)) ; This is crucial for JSX
+  )
+
+;; --- LSP Configuration ---
+; (use-package lsp-mode
+;   :commands lsp
+;   :hook (
+;          ;; General JS/TS hooks
+;          (js-ts-mode . lsp-deferred)
+;          (typescript-ts-mode . lsp-deferred)
+;          (tsx-ts-mode . lsp-deferred)
+;          ;; IMPORTANT: For .jsx files using js-ts-mode
+;          (js-ts-mode . (lambda ()
+;                          (when (string-match-p "\\.jsx\\'" (buffer-file-name))
+;                            (lsp-deferred))))
+;          )
+;   :init
+;   ;; Set prefix for lsp-command-keymap (e.g., "C-c l")
+;   (setq lsp-keymap-prefix "C-c l")
+;   :config
+;   (setq lsp-enable-which-key-integration t) ;; Integrates with your which-key setup
+;   (setq lsp-ui-doc-position 'at-point) ;; Optional: Where documentation pops up
+;   (setq lsp-completion-provider :company) ;; Ensure company-mode is used for completion
+;
+;    ;; **ADD THESE LINES:**
+;   (add-to-list 'lsp-language-id-configuration '(javascript-ts-mode . "javascript"))
+;   (add-to-list 'lsp-language-id-configuration '(js-ts-mode . "javascript"))
+;   (add-to-list 'lsp-language-id-configuration '(typescript-ts-mode . "typescript"))
+;   (add-to-list 'lsp-language-id-configuration '(tsx-ts-mode . "typescript")) ; TSX files also use 'typescript' language ID
+;
+;   ;; Make sure 'typescript-language-server' is mapped to 'javascript' and 'typescript' language IDs
+;   ;; This might be redundant if the above explicit configuration works, but good to have.
+;   (add-to-list 'lsp-language-id-configuration '(javascript . ("typescript-language-server")))
+;   (add-to-list 'lsp-language-id-configuration '(typescript . ("typescript-language-server")))
+;
+;
+;   ;; This tells LSP where to find the server executable itself.
+;   ;; You should still ensure the directory is in `exec-path` or specify the full path here.
+;   (setq lsp-typescript-server-path (executable-find "typescript-language-server"))
+;
+;   ;; If you want to enable logging for the TS server for debugging
+;   ;; (setq lsp-typescript-tsserver-log "verbose")
+;   )
+;
+; ;; Optional: for enhanced UI elements like sidebars, peek definitions, etc.
+; (use-package lsp-ui
+;   :commands lsp-ui-mode
+;   :hook (lsp-mode . lsp-ui-mode)
+;   :config
+;   ;; Adjust lsp-ui settings as desired
+;   (setq lsp-ui-sideline-show-hover t)
+;   (setq lsp-ui-sideline-show-diagnostics t)
+;   (setq lsp-ui-pop-up-show-code-actions t)
+;   )
+;
+;; Optional: for linting/diagnostics (LSP will feed into this)
+; (use-package flycheck
+;   :init (global-flycheck-mode))
 
 (use-package copilot
   :quelpa (copilot :fetcher github
@@ -434,4 +411,16 @@ cleared, make sure the overlay doesn't come back too soon."
 
 (advice-add 'keyboard-quit :before #'ra/copilot-quit)
 
-(setq warning-minimum-level :error)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(js-indent-level 2)
+ '(package-selected-packages nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
