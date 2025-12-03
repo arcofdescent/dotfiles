@@ -1,0 +1,56 @@
+# --- Appearance & Fonts ---
+theme = Catppuccin Mocha
+font-family = "JetBrains Mono"
+font-size = 14
+
+# Adjust cursor to be a block that stops blinking
+cursor-style = block
+cursor-style-blink = true
+
+# --- Cross-Platform Titlebar Hiding ---
+# macOS: Hides the bar but keeps the "traffic lights" if you hover (or use 'hidden' to remove fully)
+#macos-titlebar-style = tabs
+# Linux: Disables server-side window decorations
+#window-decoration = false
+# Linux (GNOME specific): Ensures the header bar is gone
+#gtk-titlebar = false
+
+# --- Window Behavior ---
+window-padding-x = 4
+window-padding-y = 4
+# Start new windows/tabs in the same directory as the current one
+#working-directory = inherit
+
+# --- Keybindings (The "Muscle Memory" Section) ---
+
+# 1. Vim-Style Split Navigation (Works on both)
+# Using Ctrl+h/j/k/l to move between splits
+#keybind = ctrl+h=goto_split:left
+#keybind = ctrl+j=goto_split:bottom
+#keybind = ctrl+k=goto_split:top
+#keybind = ctrl+l=goto_split:right
+
+# 2. Resizing Splits
+# macOS: Cmd+Ctrl+Arrow
+#keybind = cmd+ctrl+left=resize_split:left,20
+#keybind = cmd+ctrl+right=resize_split:right,20
+#keybind = cmd+ctrl+up=resize_split:up,20
+#keybind = cmd+ctrl+down=resize_split:down,20
+# Linux: Alt+Shift+Arrow (Alternative since Cmd is Super on Linux)
+#keybind = alt+shift+left=resize_split:left,20
+#keybind = alt+shift+right=resize_split:right,20
+#keybind = alt+shift+up=resize_split:up,20
+#keybind = alt+shift+down=resize_split:down,20
+
+# 3. Tab Management
+# Standardize "New Tab" if you want consistency
+# Ghostty defaults are usually fine (Cmd+T on Mac, Ctrl+Shift+T on Linux)
+# But here is how to force Alt+Enter to open a new tab on BOTH:
+keybind = ctrl+shift+t=new_tab
+keybind = ctrl+]=next_tab
+keybind = ctrl+[=previous_tab
+
+# 4. Reload Config (Useful when tweaking this file)
+keybind = ctrl+shift+r=reload_config
+keybind = cmd+shift+r=reload_config
+
