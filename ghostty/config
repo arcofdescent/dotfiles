@@ -48,3 +48,5 @@ keybind = ctrl+[=previous_tab
 # 4. Reload Config (Useful when tweaking this file)
 keybind = cmd+shift+r=reload_config
 
+background-opacity = 0.95
+
