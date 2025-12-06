@@ -235,83 +235,11 @@
 (use-package quelpa)
 (use-package quelpa-use-package)
 
-;; Tree-sitter core configuration
-(use-package tree-sitter
-  :ensure t
-  :config
-  ;; Enable tree-sitter-mode globally if you want it to activate for all supported modes
-  ;; However, it's often better to enable it on a per-mode basis as shown below
-  ;; (global-tree-sitter-mode)
-    
-  ;; Map file extensions to Tree-sitter major modes
-  (add-to-list 'auto-mode-alist '("\\.py\\'" . python-ts-mode))
-  (add-to-list 'auto-mode-alist '("\\.js\\'" . js-ts-mode))
-  (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-ts-mode))
-  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . tsx-ts-mode)) ; This is crucial for TSX
-  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . js-ts-mode)) ; This is crucial for JSX
-  )
-
-;; --- LSP Configuration ---
-; (use-package lsp-mode
-;   :commands lsp
-;   :hook (
-;          ;; General JS/TS hooks
-;          (js-ts-mode . lsp-deferred)
-;          (typescript-ts-mode . lsp-deferred)
-;          (tsx-ts-mode . lsp-deferred)
-;          ;; IMPORTANT: For .jsx files using js-ts-mode
-;          (js-ts-mode . (lambda ()
-;                          (when (string-match-p "\\.jsx\\'" (buffer-file-name))
-;                            (lsp-deferred))))
-;          )
-;   :init
-;   ;; Set prefix for lsp-command-keymap (e.g., "C-c l")
-;   (setq lsp-keymap-prefix "C-c l")
-;   :config
-;   (setq lsp-enable-which-key-integration t) ;; Integrates with your which-key setup
-;   (setq lsp-ui-doc-position 'at-point) ;; Optional: Where documentation pops up
-;   (setq lsp-completion-provider :company) ;; Ensure company-mode is used for completion
-;
-;    ;; **ADD THESE LINES:**
-;   (add-to-list 'lsp-language-id-configuration '(javascript-ts-mode . "javascript"))
-;   (add-to-list 'lsp-language-id-configuration '(js-ts-mode . "javascript"))
-;   (add-to-list 'lsp-language-id-configuration '(typescript-ts-mode . "typescript"))
-;   (add-to-list 'lsp-language-id-configuration '(tsx-ts-mode . "typescript")) ; TSX files also use 'typescript' language ID
-;
-;   ;; Make sure 'typescript-language-server' is mapped to 'javascript' and 'typescript' language IDs
-;   ;; This might be redundant if the above explicit configuration works, but good to have.
-;   (add-to-list 'lsp-language-id-configuration '(javascript . ("typescript-language-server")))
-;   (add-to-list 'lsp-language-id-configuration '(typescript . ("typescript-language-server")))
-;
-;
-;   ;; This tells LSP where to find the server executable itself.
-;   ;; You should still ensure the directory is in `exec-path` or specify the full path here.
-;   (setq lsp-typescript-server-path (executable-find "typescript-language-server"))
-;
-;   ;; If you want to enable logging for the TS server for debugging
-;   ;; (setq lsp-typescript-tsserver-log "verbose")
-;   )
-;
-; ;; Optional: for enhanced UI elements like sidebars, peek definitions, etc.
-; (use-package lsp-ui
-;   :commands lsp-ui-mode
-;   :hook (lsp-mode . lsp-ui-mode)
-;   :config
-;   ;; Adjust lsp-ui settings as desired
-;   (setq lsp-ui-sideline-show-hover t)
-;   (setq lsp-ui-sideline-show-diagnostics t)
-;   (setq lsp-ui-pop-up-show-code-actions t)
-;   )
-;
-;; Optional: for linting/diagnostics (LSP will feed into this)
-; (use-package flycheck
-;   :init (global-flycheck-mode))
-
 (use-package copilot
-  :quelpa (copilot :fetcher github
-                   :repo "copilot-emacs/copilot.el"
-                   :branch "main"
-                   :files ("dist" "*.el"))
+	:vc (:url "https://github.com/copilot-emacs/copilot.el"
+            :rev :newest
+            :branch "main")
+
   :init
   (add-hook 'prog-mode-hook #'copilot-mode))
 ;; you can utilize :map :hook and :config to customize copilot
