@@ -1,5 +1,6 @@
 
 macos-option-as-alt = "left"
+copy-on-select = clipboard
 
 # --- Appearance & Fonts ---
 theme = Catppuccin Mocha
