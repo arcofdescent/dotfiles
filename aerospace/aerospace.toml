@@ -138,6 +138,10 @@ on-mode-changed = []
     alt-shift-3 = 'move-node-to-workspace 3'
     alt-shift-4 = 'move-node-to-workspace 4'
 
+    # next/prev workspace
+    "alt-rightSquareBracket" = 'workspace next'
+    "alt-leftSquareBracket" = 'workspace prev'
+
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
     alt-tab = 'workspace-back-and-forth'
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
