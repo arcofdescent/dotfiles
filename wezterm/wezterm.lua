@@ -16,7 +16,7 @@ config.animation_fps = 144
 
 -- Tmux-style Keybindings
 -- Set a leader key (CTRL-space)
-config.leader = { key = ' ', mods = 'CTRL', timeout_milliseconds = 1000 }
+config.leader = { key = ' ', mods = 'CTRL', timeout_milliseconds = 2000 }
 
 config.keys = {
   -- TAB NAVIGATION (New)
@@ -39,6 +39,13 @@ config.keys = {
   { key = 'l', mods = 'LEADER', action = wezterm.action.ActivatePaneDirection 'Right' },
   { key = 'k', mods = 'LEADER', action = wezterm.action.ActivatePaneDirection 'Up' },
   { key = 'j', mods = 'LEADER', action = wezterm.action.ActivatePaneDirection 'Down' },
+
+  -- copy mode
+  { key = '[', mods = 'LEADER', action = wezterm.action.ActivateCopyMode },
+
+  -- QUICK SELECT / HINT MODE (New)
+  -- Sequence: CTRL+SPACE, then s
+  { key = 's', mods = 'LEADER', action = wezterm.action.QuickSelect },
 }
 
 return config
