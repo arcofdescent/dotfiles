@@ -170,20 +170,6 @@ To tangle - C-c C-v C-t
   (global-set-key (kbd "C-x a") 'org-agenda)
 #+end_src
 
-* Org roam
-
-#+begin_src emacs-lisp
-  (use-package org-roam
-    :ensure t
-    :custom
-    (org-roam-directory "~/Dropbox/roam")
-    :bind (("C-c n l" . org-roam-buffer-toggle)
-           ("C-c n f" . org-roam-node-find)
-           ("C-c n i" . org-roam-node-insert))
-    :config
-    (org-roam-setup))
-#+end_src
-
 * Org babel
 
 #+begin_src emacs-lisp
@@ -202,6 +188,20 @@ To tangle - C-c C-v C-t
   (use-package org-bullets
     :init
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+#+end_src
+
+* Lua Mode
+
+#+begin_src emacs-lisp
+    ; Minimal lua-mode configuration using use-package
+  (use-package lua-mode
+    :ensure t
+    :mode ("\\.lua\\'" . lua-mode)
+    :interpreter ("lua" . lua-mode)
+    :config
+    ;; Indentation: set to 2 (change to 4 if you prefer)
+    (setq lua-indent-level 2))
+
 #+end_src
 
 * Which key

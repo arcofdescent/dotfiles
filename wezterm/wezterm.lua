@@ -4,8 +4,8 @@ local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
 
 -- Appearance
-config.font = wezterm.font("JetBrains Mono Nerd Font")
-config.font_size = 10.0
+config.font = wezterm.font("JetBrains Mono")
+config.font_size = 12.5
 config.line_height = 1.1
 config.color_scheme = "Tokyo Night Moon"
 config.window_decorations = "RESIZE"
