@@ -4,8 +4,8 @@ local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
 
 -- Appearance
-config.font = wezterm.font("JetBrains Mono")
-config.font_size = 12.5
+config.font = wezterm.font("JetBrains Mono Nerd Font")
+config.font_size = 10.0
 config.line_height = 1.1
 config.color_scheme = "Tokyo Night Moon"
 config.window_decorations = "RESIZE"
@@ -16,7 +16,7 @@ config.animation_fps = 144
 
 -- Tmux-style Keybindings
 -- Set a leader key (CTRL-space)
-config.leader = { key = ' ', mods = 'CTRL', timeout_milliseconds = 2000 }
+config.leader = { key = '\'', mods = 'CTRL', timeout_milliseconds = 2000 }
 
 config.keys = {
   -- TAB NAVIGATION (New)
