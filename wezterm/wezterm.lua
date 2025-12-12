@@ -26,9 +26,20 @@ config.line_height = 1.1
 config.color_scheme = "Tokyo Night Moon"
 config.window_decorations = "RESIZE"
 config.hide_tab_bar_if_only_one_tab = true
-config.use_fancy_tab_bar = false
+config.use_fancy_tab_bar = true
 config.max_fps = 144
 config.animation_fps = 144
+
+config.window_frame = {
+  font_size = 15.0,
+  active_titlebar_bg = "#1a1b26",
+  inactive_titlebar_bg = "#1a1b26",
+}
+
+wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_width)
+  local title = "  " .. tab.active_pane.title .. "  "
+  return title
+end)
 
 -- Tmux-style Keybindings
 -- Set a leader key (CTRL-space)
