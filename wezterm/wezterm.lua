@@ -1,6 +1,6 @@
 
 local wezterm = require 'wezterm'
-
+local action = wezterm.action
 local config = wezterm.config_builder()
 
 -- Detect the OS
@@ -43,7 +43,7 @@ end)
 
 -- Tmux-style Keybindings
 -- Set a leader key (CTRL-space)
-config.leader = { key = '\'', mods = 'CTRL', timeout_milliseconds = 2000 }
+config.leader = { key = ' ', mods = 'CTRL', timeout_milliseconds = 2000 }
 
 config.keys = {
   -- TAB NAVIGATION (New)
@@ -73,6 +73,9 @@ config.keys = {
   -- QUICK SELECT / HINT MODE (New)
   -- Sequence: CTRL+SPACE, then s
   { key = 's', mods = 'LEADER', action = wezterm.action.QuickSelect },
+
+  -- detach session/domain
+  { key = 'd', mods = 'LEADER', action = action.DetachDomain 'CurrentPaneDomain' },
 }
 
 return config
